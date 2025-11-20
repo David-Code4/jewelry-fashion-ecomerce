@@ -1,7 +1,6 @@
 ---
+import ClerkWrapper from "../utils/auth/ClerkWrapper.jsx";
 import "../styles/global.css";
-import ClerkProvider from '@clerk/astro';
-const publishableKey = import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY || '';
 ---
 
 <!doctype html>
@@ -11,9 +10,8 @@ const publishableKey = import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY || '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-    <ClerkProvider publishableKey={publishableKey}>
+    <ClerkWrapper client:only="react">
       <slot />
-    </ClerkProvider>
-    <script type="module" src="/js/cart.js"></script>
+    </ClerkWrapper>
   </body>
 </html>

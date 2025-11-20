@@ -14,16 +14,14 @@ import {
   <div
     class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
   >
-    <a class="text-xl font-bold uppercase tracking-widest text-white" href="/"
-      >Jewelry Fashion</a
-    >
+    <a class="text-xl font-bold uppercase tracking-widest text-white" href="/">Jewelry Fashion</a>
     <nav
       class="hidden items-center space-x-4 text-xs font-medium uppercase tracking-wider text-gray-300 lg:flex lg:space-x-6"
     >
       <a class="hover:text-white" href="/about-us">Quienes somos</a>
       <a class="hover:text-white" href="/catalog">Catalogo</a>
-      <a class="hover:text-white" href="#">Servicios</a>
-      <a class="hover:text-white" href="#">Contacto</a>
+      <a class="hover:text-white" href="/services">Servicios</a>
+      <a class="hover:text-white" href="/contact">Contacto</a>
     </nav>
     <div class="flex items-center">
       <a href="/cart" class="relative flex size-10 items-center justify-center rounded-full text-white hover:bg-white/10">
@@ -129,9 +127,9 @@ import {
     <a class="block px-2 py-2 rounded hover:text-white" href="/about-us"
       >Quienes somos</a
     >
-    <a class="block px-2 py-2 rounded hover:text-white" href="#">Catalogo</a>
-    <a class="block px-2 py-2 rounded hover:text-white" href="#">Servicios</a>
-    <a class="block px-2 py-2 rounded hover:text-white" href="#">Contacto</a>
+    <a class="block px-2 py-2 rounded hover:text-white" href="/catalog">Catalogo</a>
+    <a class="block px-2 py-2 rounded hover:text-white" href="/services">Servicios</a>
+    <a class="block px-2 py-2 rounded hover:text-white" href="/contact">Contacto</a>
   </nav>
   <div class="mt-6 border-t border-white/5">
     <div class="flex pl-2 items-center">
@@ -145,7 +143,7 @@ import {
   </div>
 </aside>
 
-<script>
+<script type="module">
   (function () {
     const menuBtn = document.getElementById("menu-button");
     const closeBtn = document.getElementById("mobile-close");
