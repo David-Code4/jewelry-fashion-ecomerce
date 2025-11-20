@@ -1,0 +1,256 @@
+---
+import BaseLayout from "../../layouts/Layout.astro";
+---
+
+<BaseLayout>
+  <main class="flex-grow px-4 pb-12">
+    <h2
+      class="text-text-light text-3xl font-bold tracking-tight text-left pt-6 pb-8"
+    >
+      Checkout
+    </h2>
+    <div class="mb-10">
+      <details class="group">
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between gap-4 rounded-lg bg-surface-dark p-4"
+        >
+          <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-text-light"
+              >shopping_cart</span
+            >
+            <span class="text-text-light font-medium text-sm"
+              >Resumen del pedido</span
+            >
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-text-light font-bold text-lg">$1,700.00</span>
+            <span
+              class="material-symbols-outlined text-text-light transition-transform duration-300 group-open:rotate-180"
+              >expand_more</span
+            >
+          </div>
+        </summary>
+        <div class="bg-black/20 mt-2 rounded-lg p-4">
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <div class="relative h-16 w-16 shrink-0 rounded-md">
+                <img
+                  alt="Golden piercing jewelry"
+                  class="h-full w-full rounded-md object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Lhtah3cgYm2xZ0QJH2A4XOKa523DH3kT9uESCgRicoSgnKxPzdLr21BuQT9r9Uv7e4IdXnb6p5TPs2ZLdw1tK4xoEJIwX8xWc88CbZmDBQhpHzWqJ7p7dtEZawQyPaClM62GVssZBEWPqpAZNpRnAdF4on1eIn1cR4kAgo4jCgiSCUK2xBf6m3z2TQT5FjDoQ4zYd8swoSiVCBQBWaqntaUaEx5i6z4fokkIrHCj6g8OIjgdaHcbtOAe2AfrDnu-AD8zNq9zZuw"
+                />
+                <span
+                  class="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary-darkest text-xs font-bold text-white"
+                  >1</span
+                >
+              </div>
+              <div class="flex-grow">
+                <p class="font-medium text-text-light text-sm">
+                  Aro de Titanio 'Eclipse'
+                </p>
+                <p class="text-xs text-text-dark">16G / 8mm</p>
+              </div>
+              <p class="font-semibold text-text-light text-sm">$1,250.00</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="relative h-16 w-16 shrink-0 rounded-md">
+                <img
+                  alt="Silver piercing jewelry"
+                  class="h-full w-full rounded-md object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWtx1y9SrcNGER23jcWYO_pSH8iyDqCaL35tV5b3mNf6AwBo8eZu8v0AP53Mar25ApUjRCAy_DSX3Z8BdfjcJVfPsrLEUWMxO2RIGbIYL9lfOlrHiB-ii0x6lZTQ8QHncGNNRJSkBqZgKNcxvzhCjWC6mbNz__iplaLHBx2fpvtxhNbe2TQfi-2HcwdVPmg1oObbQwPxzgb0_lra7qr-TA6U3YD4zT6lxQCbLOSUpUJeBSfNgd9LekHBGHkewZ4Yoi0W1lmbRLqr0"
+                />
+                <span
+                  class="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary-darkest text-xs font-bold text-white"
+                  >1</span
+                >
+              </div>
+              <div class="flex-grow">
+                <p class="font-medium text-text-light text-sm">
+                  Stud 'Estelar' de Plata
+                </p>
+                <p class="text-xs text-text-dark">18G / 6mm</p>
+              </div>
+              <p class="font-semibold text-text-light text-sm">$300.00</p>
+            </div>
+          </div>
+          <div class="my-4 h-px bg-border-dark"></div>
+          <div class="flex gap-4">
+            <input
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-sm font-normal"
+              placeholder="Código de descuento"
+              type="text"
+              value=""
+            />
+            <button
+              class="flex items-center justify-center rounded-lg h-12 px-5 bg-border-dark text-text-light text-sm font-bold transition-colors hover:bg-primary-darkest"
+              >Aplicar</button
+            >
+          </div>
+          <div class="my-4 h-px bg-border-dark"></div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <p class="text-text-dark">Subtotal</p><p
+                class="text-text-light font-medium"
+              >
+                $1,550.00
+              </p>
+            </div>
+            <div class="flex justify-between">
+              <p class="text-text-dark">Envío</p><p
+                class="text-text-light font-medium"
+              >
+                $150.00
+              </p>
+            </div>
+            <div
+              class="flex justify-between pt-2 border-t border-border-dark mt-2 text-base font-bold"
+            >
+              <p class="text-text-light">Total</p><p class="text-text-light">
+                $1,700.00
+              </p>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+    <div class="flex flex-col space-y-6">
+      <div>
+        <h3 class="text-xl font-semibold text-text-light mb-4">
+          Datos de Contacto
+        </h3>
+        <div class="flex flex-col gap-4">
+          <label class="flex flex-col w-full">
+            <span class="text-text-dark text-sm font-medium leading-normal pb-2"
+              >Email</span
+            >
+            <input
+              class="form-input flex p-3 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base font-normal leading-normal"
+              placeholder="Ingresa tu email"
+              type="email"
+              value=""
+            />
+          </label>
+          <div class="flex items-center gap-3">
+            <input
+              class="form-checkbox h-5 w-5 rounded-md border-border-dark bg-surface-dark text-primary focus:ring-primary-darker checked:bg-primary"
+              id="newsletter"
+              type="checkbox"
+            />
+            <label class="text-text-dark text-sm" for="newsletter"
+              >Quiero recibir noticias y ofertas.</label
+            >
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-text-light mb-4">
+          Dirección de Envío
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <label class="flex flex-col w-full sm:col-span-2">
+            <span class="text-text-dark text-sm font-medium pb-2"
+              >Nombre Completo</span
+            >
+            <input
+              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+              placeholder="Nombre y Apellido"
+              type="text"
+            />
+          </label>
+          <label class="flex flex-col w-full sm:col-span-2">
+            <span class="text-text-dark text-sm font-medium pb-2"
+              >Dirección</span
+            >
+            <input
+              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+              placeholder="Calle y número"
+              type="text"
+            />
+          </label>
+          <label class="flex flex-col w-full">
+            <span class="text-text-dark text-sm font-medium pb-2">Ciudad</span>
+            <input
+              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+              placeholder="Tu ciudad"
+              type="text"
+            />
+          </label>
+          <label class="flex flex-col w-full">
+            <span class="text-text-dark text-sm font-medium pb-2"
+              >Código Postal</span
+            >
+            <input
+              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+              placeholder="00000"
+              type="text"
+            />
+          </label>
+          <label class="flex flex-col w-full sm:col-span-2">
+            <span class="text-text-dark text-sm font-medium pb-2">País</span>
+            <input
+              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+              type="text"
+              value="México"
+            />
+          </label>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-text-light mb-4">
+          Método de Pago
+        </h3>
+        <div class="rounded-lg border border-border-dark bg-surface-dark p-4">
+          <p class="text-text-light font-medium mb-4">
+            Tarjeta de crédito/débito
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="flex flex-col w-full sm:col-span-2">
+              <input
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
+                placeholder="Número de tarjeta"
+                type="text"
+              />
+            </label>
+            <label class="flex flex-col w-full sm:col-span-2">
+              <input
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
+                placeholder="Nombre en la tarjeta"
+                type="text"
+              />
+            </label>
+            <label class="flex flex-col w-full">
+              <input
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
+                placeholder="MM/AA"
+                type="text"
+              />
+            </label>
+            <label class="flex flex-col w-full">
+              <input
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
+                placeholder="CVC"
+                type="text"
+              />
+            </label>
+          </div>
+        </div>
+        <div
+          class="flex items-center justify-center gap-2 pt-4 text-xs text-text-dark"
+        >
+          <span class="material-symbols-outlined text-base">lock</span>
+          <span>Pago Seguro</span>
+        </div>
+      </div>
+      <div class="pt-4">
+        <button
+          class="w-full rounded-lg bg-primary py-4 px-6 text-center text-base font-bold text-white hover:bg-primary-darker transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-dark focus:ring-primary"
+          >Pagar Ahora $1,700.00</button
+        >
+        <a
+          class="mt-4 block text-center text-sm text-primary hover:underline"
+          href="#">Volver al carrito</a
+        >
+      </div>
+    </div>
+  </main>
+</BaseLayout>

@@ -3,7 +3,88 @@ import BaseLayout from "../../layouts/Layout.astro";
 ---
 
 <BaseLayout>
+  <div class="container mx-auto px-4 py-8">
+
+<BaseLayout>
   <div>Page</div>
 </BaseLayout>
 
 <script></script>
+      <div class="flex items-center justify-between mt-6">
+        <div class="text-white font-bold">Total:</div>
+        <div id="cart-total" class="text-white font-bold text-xl">$0.00</div>
+      </div>
+      <div class="mt-4 flex gap-3">
+        <a href="/checkout" class="px-4 py-3 bg-primary text-white rounded">Ir a pagar</a>
+        <button id="clear-cart" class="px-4 py-3 bg-bg-accent-dark text-white rounded">Vaciar carrito</button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  (function(){
+    const emptyEl = document.getElementById('cart-empty');
+    const listEl = document.getElementById('cart-list');
+    const itemsEl = document.getElementById('cart-items');
+    const totalEl = document.getElementById('cart-total');
+    const clearBtn = document.getElementById('clear-cart');
+
+    function formatPrice(v){
+      return '$' + (Number(v) || 0).toFixed(2);
+    }
+
+    function render(){
+      const cart = (window.cartApi && window.cartApi.getCart()) || [];
+      if(!cart || cart.length === 0){
+        emptyEl && (emptyEl.style.display = 'block');
+        listEl && (listEl.classList.add('hidden'));
+        return;
+      }
+      emptyEl && (emptyEl.style.display = 'none');
+      listEl && (listEl.classList.remove('hidden'));
+      itemsEl.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += (Number(item.price) || 0) * (item.quantity || 1);
+        const wrapper = document.createElement('div');
+        wrapper.className = 'flex items-center gap-4 bg-bg-accent-darker p-4 rounded';
+        wrapper.innerHTML = `
+          <div class="w-20 h-20 bg-center bg-cover rounded" style="background-image: url('${item.image || ''}');"></div>
+          <div class="flex-1">
+            <div class="text-white font-semibold">${item.name}</div>
+            <div class="text-gray-400 text-sm">${formatPrice(item.price)}</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <input data-id="${item.id}" type="number" min="1" value="${item.quantity}" class="w-16 p-1 rounded bg-black/40 text-white text-center" />
+            <button data-remove="${item.id}" class="px-3 py-1 bg-red-600 text-white rounded">Eliminar</button>
+          </div>
+        `;
+        itemsEl.appendChild(wrapper);
+      });
+      totalEl && (totalEl.textContent = formatPrice(total));
+      // attach listeners
+      itemsEl.querySelectorAll('input[type="number"]').forEach(inp => {
+        inp.addEventListener('change', (e) => {
+          const id = inp.getAttribute('data-id');
+          const qty = Number(inp.value || 1);
+          window.cartApi.updateQty(id, qty);
+        });
+      });
+      itemsEl.querySelectorAll('button[data-remove]').forEach(btn => {
+        btn.addEventListener('click', (e)=>{
+          const id = btn.getAttribute('data-remove');
+          window.cartApi.removeItem(id);
+        });
+      });
+    }
+
+    window.addEventListener('cartchange', render);
+    // initial render
+    setTimeout(render, 50);
+
+    clearBtn && clearBtn.addEventListener('click', ()=>{
+      if(window.cartApi) window.cartApi.clearCart();
+    });
+  })();
+</script>
