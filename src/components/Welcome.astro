@@ -1,9 +1,10 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<div id="container">Welcome</div>
-
-<style></style>
+<BaseLayout>
+  <div>Page</div>
+</BaseLayout>
 
 <script>
   const urlHost = window.location.host;
@@ -12,3 +13,4 @@
     window.location.href = "/maintance";
   }
 </script>
+
