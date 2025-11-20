@@ -26,9 +26,7 @@ import {
       <a class="hover:text-white" href="#">Contacto</a>
     </nav>
     <div class="flex items-center">
-      <a href="/cart"
-        class="flex size-10 items-center justify-center rounded-full text-white hover:bg-white/10"
-      >
+      <a href="/cart" class="relative flex size-10 items-center justify-center rounded-full text-white hover:bg-white/10">
         <span class="material-symbols-outlined text-2xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +46,7 @@ import {
             ></path></svg
           >
         </span>
+        <span id="cart-count-badge" class="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[18px] h-4 px-1 rounded-full bg-primary text-white text-xs font-bold opacity-0 transition-opacity duration-200">0</span>
       </a>
       <div class="ml-4 flex items-center">
         <SignedOut>
@@ -201,5 +200,16 @@ import {
         if (opened) closeMenu();
       }
     });
+    // Cart badge handling
+    const cartBadge = document.getElementById('cart-count-badge');
+    function setBadge(count){
+      if(!cartBadge) return;
+      cartBadge.textContent = String(count || 0);
+      if((count||0) > 0){ cartBadge.classList.remove('opacity-0'); cartBadge.classList.add('opacity-100'); }
+      else { cartBadge.classList.remove('opacity-100'); cartBadge.classList.add('opacity-0'); }
+    }
+    window.addEventListener('cartchange', (e)=> setBadge(e.detail?.count));
+    // initialize from API if available
+    setTimeout(()=>{ if(window.cartApi && typeof window.cartApi.getCount === 'function') setBadge(window.cartApi.getCount()); }, 50);
   })();
 </script>

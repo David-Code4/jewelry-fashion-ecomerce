@@ -1,9 +1,19 @@
 ---
 import "../styles/global.css";
+import ClerkProvider from '@clerk/astro';
+const publishableKey = import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY || '';
 ---
 
-<html>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
   <body>
-    <slot />
+    <ClerkProvider publishableKey={publishableKey}>
+      <slot />
+    </ClerkProvider>
+    <script type="module" src="/js/cart.js"></script>
   </body>
 </html>

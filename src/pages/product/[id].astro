@@ -141,6 +141,10 @@ try {
           <!-- 🛒 Botones -->
           <div class="flex flex-col gap-3 mt-2">
             <button
+              id="add-to-cart-btn"
+              data-product={encodeURIComponent(
+                JSON.stringify(productSelected || {})
+              )}
               class="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary hover:bg-primary-darker px-4 py-3 text-white text-base font-bold transition-colors"
             >
               <span class="material-symbols-outlined">add_shopping_cart</span>
@@ -196,4 +200,44 @@ try {
   }
 </style>
 
-<script></script>
+<script type="module">
+  window.addEventListener("DOMContentLoaded", () => {
+    try {
+      debugger;
+      const btn = document.getElementById("add-to-cart-btn");
+      if (!btn) return;
+      const raw = btn.getAttribute("data-product") || "";
+      let product = {};
+      try {
+        product = JSON.parse(decodeURIComponent(raw));
+      } catch (e) {
+        product = {};
+      }
+      const payload = {
+        id: String(
+          product?.id ?? product?.product_id ?? product?.sku ?? "unknown"
+        ),
+        name: String(product.product_name ?? product.name ?? ""),
+        price: Number(product.price ?? 0),
+        image: product.image_url ?? product.image ?? "",
+        quantity: 1,
+      };
+      btn.addEventListener("click", function () {
+        debugger;
+        if (window.cartApi && typeof window.cartApi.addItem === "function") {
+          window.cartApi.addItem(payload);
+          // visual feedback
+          const original = btn.innerHTML;
+          btn.textContent = "Añadido";
+          setTimeout(() => {
+            btn.innerHTML = original;
+          }, 900);
+        } else {
+          console.warn("cartApi not available");
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  });
+</script>
