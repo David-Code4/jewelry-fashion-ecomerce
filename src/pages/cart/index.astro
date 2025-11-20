@@ -4,12 +4,12 @@ import BaseLayout from "../../layouts/Layout.astro";
 
 <BaseLayout>
   <div class="container mx-auto px-4 py-8">
+    <h1 class="text-white text-2xl font-bold mb-6">Carrito</h1>
 
-<BaseLayout>
-  <div>Page</div>
-</BaseLayout>
+    <div id="cart-empty" class="text-gray-400">Tu carrito está vacío.</div>
 
-<script></script>
+    <div id="cart-list" class="space-y-4 hidden">
+      <div id="cart-items" class="space-y-4"></div>
       <div class="flex items-center justify-between mt-6">
         <div class="text-white font-bold">Total:</div>
         <div id="cart-total" class="text-white font-bold text-xl">$0.00</div>
