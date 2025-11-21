@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/Layout.astro";
 
 <BaseLayout>
   <main class="flex-grow px-4 pb-12">
-    <h2
+    <div
       class="text-text-light text-3xl font-bold tracking-tight text-left pt-6 pb-8"
     >
       <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-10">
@@ -20,189 +20,273 @@ import BaseLayout from "../../layouts/Layout.astro";
           <aside class="lg:col-span-1">
             <h3 class="text-lg font-semibold">Resumen</h3>
             <div class="mt-4 bg-white rounded-lg shadow-sm p-6">
-              <p class="text-gray-600">Total: <strong id="cart-total">$0</strong></p>
-              <button id="checkout-clear" class="mt-4 w-full rounded bg-red-500 text-white py-2">Vaciar carrito</button>
+              <p class="text-gray-600">
+                Total: <strong id="cart-total">$0</strong>
+              </p>
+              <button
+                id="checkout-clear"
+                class="mt-4 w-full cursor-pointer rounded bg-red-500 text-white py-2"
+                >Vaciar carrito</button
+              >
+              <button
+                id="checkout-pay"
+                class="mt-3 w-full cursor-pointer rounded bg-background-dark text-white py-2"
+                >Pagar</button
+              >
+              <p
+                id="checkout-pay-note"
+                class="text-sm text-gray-500 mt-2 hidden"
+              >
+                El carrito está vacío. Añade productos antes de pagar.
+              </p>
             </div>
           </aside>
         </div>
-      </main>
 
-      <script>
-        (function(){
-          const fmt = v => Number(v||0).toFixed(2);
-          const elItems = document.getElementById('cart-items');
-          const elTotal = document.getElementById('cart-total');
-          const clearBtn = document.getElementById('checkout-clear');
-
-          function render(){
-            if(!(window.cartApi && typeof window.cartApi.getCart === 'function')){
-              elItems.innerHTML = '<p class="text-red-500">Carrito no disponible.</p>';
-              return;
-            }
-            const items = window.cartApi.getCart();
-            if(!items || items.length === 0){
-              elItems.innerHTML = '<p class="text-gray-600">Tu carrito está vacío.</p>';
-              elTotal.textContent = '$0.00';
-              return;
-            }
-            elItems.innerHTML = '';
-            let total = 0;
-            items.forEach(item => {
-              const row = document.createElement('div');
-              row.className = 'flex items-center gap-4';
-              const img = document.createElement('img');
-              img.src = item.image || '/assets/placeholder.png';
-              img.alt = item.name || '';
-              img.width = 64; img.height = 64;
-              img.className = 'rounded';
-              const info = document.createElement('div');
-              info.className = 'flex-1';
-              info.innerHTML = `<div class="font-semibold">${item.name}</div>
-                <div class="text-sm text-gray-600">$${fmt(item.price)} x <input data-id="${item.id}" class="w-12 border rounded px-1 qty-input" value="${item.quantity}" /></div>`;
-              const remove = document.createElement('button');
-              remove.className = 'ml-4 text-sm text-red-600';
-              remove.textContent = 'Eliminar';
-              remove.addEventListener('click', ()=>{ window.cartApi.removeItem(item.id); });
-              row.appendChild(img);
-              row.appendChild(info);
-              row.appendChild(remove);
-              elItems.appendChild(row);
-              total += (Number(item.price||0) * Number(item.quantity||0));
-            });
-            elTotal.textContent = '$' + fmt(total);
-
-            // attach qty listeners
-            document.querySelectorAll('.qty-input').forEach(input => {
-              input.addEventListener('change', (e)=>{
-                const id = input.getAttribute('data-id');
-                const v = Number(input.value || 0);
-                if(v <= 0){ window.cartApi.removeItem(id); return; }
-                window.cartApi.updateQty(id, v);
-              });
-            });
-          }
-
-          if(clearBtn) clearBtn.addEventListener('click', ()=>{ window.cartApi.clearCart(); });
-
-          window.addEventListener('cartchange', ()=> render());
-          // initial render (in case cartApi already loaded)
-          setTimeout(()=> render(), 100);
-        })();
-      </script>
-              >Quiero recibir noticias y ofertas.</label
-            >
-          </div>
-        </div>
-      </div>
-      <div>
-        <h3 class="text-xl font-semibold text-text-light mb-4">
-          Dirección de Envío
-        </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <label class="flex flex-col w-full sm:col-span-2">
-            <span class="text-text-dark text-sm font-medium pb-2"
-              >Nombre Completo</span
-            >
-            <input
-              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
-              placeholder="Nombre y Apellido"
-              type="text"
-            />
-          </label>
-          <label class="flex flex-col w-full sm:col-span-2">
-            <span class="text-text-dark text-sm font-medium pb-2"
-              >Dirección</span
-            >
-            <input
-              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
-              placeholder="Calle y número"
-              type="text"
-            />
-          </label>
-          <label class="flex flex-col w-full">
-            <span class="text-text-dark text-sm font-medium pb-2">Ciudad</span>
-            <input
-              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
-              placeholder="Tu ciudad"
-              type="text"
-            />
-          </label>
-          <label class="flex flex-col w-full">
-            <span class="text-text-dark text-sm font-medium pb-2"
-              >Código Postal</span
-            >
-            <input
-              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
-              placeholder="00000"
-              type="text"
-            />
-          </label>
-          <label class="flex flex-col w-full sm:col-span-2">
-            <span class="text-text-dark text-sm font-medium pb-2">País</span>
-            <input
-              class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
-              type="text"
-              value="México"
-            />
-          </label>
-        </div>
-      </div>
-      <div>
-        <h3 class="text-xl font-semibold text-text-light mb-4">
-          Método de Pago
-        </h3>
-        <div class="rounded-lg border border-border-dark bg-surface-dark p-4">
-          <p class="text-text-light font-medium mb-4">
-            Tarjeta de crédito/débito
-          </p>
+        <!-- Form container is hidden until user clicks 'Pagar' -->
+        <div id="checkout-form-container" class="hidden">
+          <h3 class="text-xl font-semibold text-text-light mb-4">
+            Dirección de Envío
+          </h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label class="flex flex-col w-full sm:col-span-2">
+              <span class="text-text-dark text-sm font-medium pb-2"
+                >Nombre Completo</span
+              >
               <input
-                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
-                placeholder="Número de tarjeta"
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+                placeholder="Nombre y Apellido"
                 type="text"
               />
             </label>
             <label class="flex flex-col w-full sm:col-span-2">
+              <span class="text-text-dark text-sm font-medium pb-2"
+                >Dirección</span
+              >
               <input
-                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
-                placeholder="Nombre en la tarjeta"
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+                placeholder="Calle y número"
                 type="text"
               />
             </label>
             <label class="flex flex-col w-full">
+              <span class="text-text-dark text-sm font-medium pb-2">Ciudad</span
+              >
               <input
-                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
-                placeholder="MM/AA"
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+                placeholder="Tu ciudad"
                 type="text"
               />
             </label>
             <label class="flex flex-col w-full">
+              <span class="text-text-dark text-sm font-medium pb-2"
+                >Código Postal</span
+              >
               <input
-                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
-                placeholder="CVC"
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+                placeholder="00000"
                 type="text"
+              />
+            </label>
+            <label class="flex flex-col w-full sm:col-span-2">
+              <span class="text-text-dark text-sm font-medium pb-2">País</span>
+              <input
+                class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-surface-dark h-12 placeholder:text-text-dark px-4 text-base"
+                type="text"
+                value="México"
               />
             </label>
           </div>
+
+          <div>
+            <h3 class="text-xl font-semibold text-text-light mb-4">
+              Método de Pago
+            </h3>
+            <div
+              class="rounded-lg border border-border-dark bg-surface-dark p-4"
+            >
+              <p class="text-text-light font-medium mb-4">
+                Tarjeta de crédito/débito
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <label class="flex flex-col w-full sm:col-span-2">
+                  <input
+                    class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
+                    placeholder="Número de tarjeta"
+                    type="text"
+                  />
+                </label>
+                <label class="flex flex-col w-full sm:col-span-2">
+                  <input
+                    class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
+                    placeholder="Nombre en la tarjeta"
+                    type="text"
+                  />
+                </label>
+                <label class="flex flex-col w-full">
+                  <input
+                    class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
+                    placeholder="MM/AA"
+                    type="text"
+                  />
+                </label>
+                <label class="flex flex-col w-full">
+                  <input
+                    class="form-input flex w-full rounded-lg text-text-light focus:outline-0 focus:ring-1 focus:ring-primary border border-border-dark bg-background-dark h-12 placeholder:text-text-dark px-4 text-base"
+                    placeholder="CVC"
+                    type="text"
+                  />
+                </label>
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-center gap-2 pt-4 text-xs text-text-dark"
+            >
+              <span class="material-symbols-outlined text-base">lock</span>
+              <span>Pago Seguro</span>
+            </div>
+          </div>
+          <div class="pt-4">
+            <button
+              id="submit-pay"
+              class="w-full rounded-lg cursor-pointer bg-primary py-4 px-6 text-center text-base font-bold text-white hover:bg-primary-darker transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-dark focus:ring-primary"
+              >Pagar Ahora $0.00</button
+            >
+            <a
+              class="mt-4 block text-center text-sm text-primary hover:underline"
+              href="/cart">Volver al carrito</a
+            >
+          </div>
         </div>
-        <div
-          class="flex items-center justify-center gap-2 pt-4 text-xs text-text-dark"
-        >
-          <span class="material-symbols-outlined text-base">lock</span>
-          <span>Pago Seguro</span>
-        </div>
-      </div>
-      <div class="pt-4">
-        <button
-          class="w-full rounded-lg bg-primary py-4 px-6 text-center text-base font-bold text-white hover:bg-primary-darker transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-dark focus:ring-primary"
-          >Pagar Ahora $1,700.00</button
-        >
-        <a
-          class="mt-4 block text-center text-sm text-primary hover:underline"
-          href="#">Volver al carrito</a
-        >
-      </div>
+      </main>
     </div>
+
+    <script type="module">
+      window.addEventListener("DOMContentLoaded", () => {
+        const elItems = document.getElementById("cart-items");
+        const elTotal = document.getElementById("cart-total");
+        const btnClear = document.getElementById("checkout-clear");
+        const btnShowForm = document.getElementById("checkout-pay");
+        const btnSubmit = document.getElementById("submit-pay");
+        const payNote = document.getElementById("checkout-pay-note");
+        const formContainer = document.getElementById(
+          "checkout-form-container"
+        );
+
+        const money = (v) => "$" + Number(v || 0).toFixed(2);
+
+        function renderCart() {
+          if (!window.cartApi) {
+            elItems.innerHTML =
+              '<p class="text-red-500">Carrito no disponible</p>';
+            return;
+          }
+
+          const cart = window.cartApi.getCart() || [];
+          const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+
+          elTotal.textContent = money(total);
+          btnSubmit.textContent = `Pagar Ahora ${money(total)}`;
+          btnShowForm.textContent = `Pagar ${money(total)}`;
+
+          if (!cart.length) {
+            elItems.innerHTML =
+              '<p class="text-gray-600">Tu carrito está vacío</p>';
+            btnShowForm.disabled = true;
+            btnSubmit.disabled = true;
+            return;
+          }
+
+          btnShowForm.disabled = false;
+          btnSubmit.disabled = false;
+
+          elItems.innerHTML = "";
+          cart.forEach((item) => {
+            const div = document.createElement("div");
+            div.className = "flex items-center gap-4";
+
+            div.innerHTML = `
+        <img src="${item.image || "/assets/placeholder.png"}" class="w-16 h-16 rounded" />
+        <div class="flex-1">
+          <strong>${item.name}</strong>
+          <div class="text-sm">
+            ${money(item.price)} x 
+            <input class="qty-input border px-1 w-14" data-id="${item.id}" value="${item.quantity}" />
+          </div>
+        </div>
+        <button data-id="${item.id}" class="remove-btn text-red-600">Eliminar</button>
+      `;
+
+            elItems.appendChild(div);
+          });
+
+          bindItemEvents();
+        }
+
+        function bindItemEvents() {
+          document.querySelectorAll(".remove-btn").forEach((btn) => {
+            btn.onclick = () => window.cartApi.removeItem(btn.dataset.id);
+          });
+
+          document.querySelectorAll(".qty-input").forEach((input) => {
+            input.onchange = () => {
+              const qty = Number(input.value);
+              if (qty <= 0) window.cartApi.removeItem(input.dataset.id);
+              else window.cartApi.updateQty(input.dataset.id, qty);
+            };
+          });
+        }
+
+        btnClear.onclick = () => {
+          window.cartApi.clearCart();
+          formContainer.classList.add("hidden");
+          renderCart();
+        };
+
+        btnShowForm.onclick = () => {
+          if (!window.cartApi.getCount()) {
+            payNote.classList.remove("hidden");
+            return;
+          }
+          payNote.classList.add("hidden");
+          formContainer.classList.remove("hidden");
+          btnShowForm.disabled = true;
+        };
+
+        async function initialPayment() {
+          const cart = JSON.parse(localStorage.getItem("cart"));
+
+          const response = await fetch(
+            "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/create-payment",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                cart,
+                email: "cliente@correo.com",
+              }),
+            }
+          );
+
+          const data = await response.json();
+
+          if (data.payment_url) {
+            window.location.href = data.payment_url;
+          } else {
+            alert("Error al generar pago");
+          }
+        }
+
+        btnSubmit.onclick = () => {
+          if (!window.cartApi.getCount()) return alert("Carrito vacío");
+          initialPayment();
+        };
+
+        window.addEventListener("cartchange", renderCart);
+        renderCart();
+      });
+    </script>
   </main>
 </BaseLayout>

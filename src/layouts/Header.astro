@@ -144,7 +144,7 @@ import {
 </aside>
 
 <script type="module">
-  (function () {
+  window.addEventListener("DOMContentLoaded", () => {
     const menuBtn = document.getElementById("menu-button");
     const closeBtn = document.getElementById("mobile-close");
     const mobile = document.getElementById("mobile-menu");
@@ -153,33 +153,33 @@ import {
     if (!menuBtn || !mobile || !overlay) return;
 
     function openMenu() {
-      mobile!.classList.remove("translate-x-full");
-      mobile!.classList.add("translate-x-0");
-      mobile!.setAttribute("aria-hidden", "false");
-      overlay!.classList.remove("opacity-0", "pointer-events-none");
-      overlay!.classList.add("opacity-100");
-      overlay!.setAttribute("aria-hidden", "false");
-      menuBtn!.setAttribute("aria-expanded", "true");
+      mobile.classList.remove("translate-x-full");
+      mobile.classList.add("translate-x-0");
+      mobile.setAttribute("aria-hidden", "false");
+      overlay.classList.remove("opacity-0", "pointer-events-none");
+      overlay.classList.add("opacity-100");
+      overlay.setAttribute("aria-hidden", "false");
+      menuBtn.setAttribute("aria-expanded", "true");
       document.documentElement.style.overflow = "hidden";
       // focus first focusable element inside menu
       setTimeout(() => {
-        const focusable = mobile!.querySelector(
+        const focusable = mobile.querySelector(
           'a, button, input, [tabindex]:not([tabindex="-1"])'
         );
-        if (focusable) (focusable as HTMLElement).focus();
+        if (focusable instanceof HTMLElement) focusable.focus();
       }, 150);
     }
 
     function closeMenu() {
-      mobile!.classList.remove("translate-x-0");
-      mobile!.classList.add("translate-x-full");
-      mobile!.setAttribute("aria-hidden", "true");
-      overlay!.classList.remove("opacity-100");
-      overlay!.classList.add("opacity-0", "pointer-events-none");
-      overlay!.setAttribute("aria-hidden", "true");
-      menuBtn!.setAttribute("aria-expanded", "false");
+      mobile.classList.remove("translate-x-0");
+      mobile.classList.add("translate-x-full");
+      mobile.setAttribute("aria-hidden", "true");
+      overlay.classList.remove("opacity-100");
+      overlay.classList.add("opacity-0", "pointer-events-none");
+      overlay.setAttribute("aria-hidden", "true");
+      menuBtn.setAttribute("aria-expanded", "false");
       document.documentElement.style.overflow = "";
-      menuBtn!.focus();
+      if (menuBtn instanceof HTMLElement) menuBtn.focus();
     }
 
     menuBtn.addEventListener("click", (e) => {
@@ -209,5 +209,5 @@ import {
     window.addEventListener('cartchange', (e)=> setBadge(e.detail?.count));
     // initialize from API if available
     setTimeout(()=>{ if(window.cartApi && typeof window.cartApi.getCount === 'function') setBadge(window.cartApi.getCount()); }, 50);
-  })();
+  });
 </script>

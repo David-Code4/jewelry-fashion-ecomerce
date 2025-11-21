@@ -1,331 +1,321 @@
 ---
-import BaseLayout from "../layouts/Layout.astro";
-// Fetch productos 
+// Fetch productos
 try {
   const response = await fetch(
-    "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_products/home/"
+    "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_products/home/?nocache=12345"
   );
-   
+
   let products = await response.json();
 } catch (err) {
   console.error("Error loading related products:", err);
 }
 ---
 
-<BaseLayout>
-  
-      <div class="flex min-h-screen w-full flex-col">
-        <main class="flex-1">
-          <div class="@container">
-            <div class="@[480px]:p-4">
-              <div
-                class="relative min-h-[40vh] overflow-hidden @[480px]:rounded-xl"
-              >
-                <div class="absolute inset-0 flex">
-                  <div
-                    class="h-full w-full flex-shrink-0 bg-cover bg-center bg-no-repeat"
-                    data-alt="Close-up of a person with elegant ear piercings wearing gold jewelry."
-                    style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuD47kH2z--Fmp1lx-r_EgQRB4SY_8Ang7hPmcP3cntoc2XHkNaCTpcrtZx3hrHndROIFLGbE50-ZDHcMzQYty45K62QwkZKbja1ATbus1An9rQRa7N0JUigK78rKxWdzdKQCEA4EC58eQWmGTxEDgKO8JryFDu7wN96ghG-YTOMjppLgpkuyq69WFWKM2qZ6_tNHFKtZhfSskFgptHaKR7IR33kDeBtOUELTKaVXBWNbxY46sMcjui9Jy-1z5Nj1BcawDDUEc-k3t4");'
-                  >
-                  </div>
-                  <div
-                    class="h-full w-full flex-shrink-0 bg-cover bg-center bg-no-repeat"
-                    data-alt="A luxurious gold piercing with intricate details against a dark backdrop."
-                    style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLxt4XNb3Fm6wv_Lp04a07yOgeePFY3oCg3G1qrDfw-ZrlnuwU0LUZReftrzz8zK7yMX6OfB02nha0lxS4vrrKcnuUbHJKFW5NGJ0lsH_Uj7nm_0ZVgx4wLPHutd_n2L_JxvicshscjHvWwoByduTT44sCQ3k3e-m1YuywC60hD8aFKwXBoWeDjMUdrELD5-Uv-JpfrnYUUVifBoe8p7j3DexpJ6GYRtYpczlVPqiVQ5Zesr04frrtuWEe_tUUp8aCH9FZ1X1eKpg");'
-                  >
-                  </div>
-                  <div
-                    class="h-full w-full flex-shrink-0 bg-cover bg-center bg-no-repeat"
-                    data-alt="A person showcasing a stylish nose piercing."
-                    style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDczgim3KXYTXwBTobhB_kGoGH2o28Gu35BkXss_c6VQhODWQao-HqolVqBZJ425L3aTvYnK3HUv35mC5wZ9sB3rRmhQTc8YFD7NO7rVM0OcfUVyyjed9vQACv3D7SRWkO2sisD7wG29qzSOIXSexCmPs-mzOvSUsuAmY98p6UBf9J1CfCi2zpkFsDEngU2xlvXyQyDNthpf7TsPdPhhc5xi6Y0kXNsUcU6ygLC0v933gLHJjga_ESzph3DamE4-xmNQDKmc4EXh8o");'
-                  >
-                  </div>
-                </div>
-                <div
-                  class="absolute inset-0 flex flex-col items-center justify-center gap-6 p-4 text-center @[480px]:gap-8"
-                >
-                  <div class="flex max-w-2xl flex-col gap-2">
-                    <h1
-                      class="text-4xl font-black leading-tight tracking-[-0.033em] text-white md:text-6xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                    >
-                      Joyería Premium para Piercings
-                    </h1>
-                    <h2
-                      class="text-sm font-normal leading-normal text-white md:text-lg @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
-                    >
-                      Descubre diseños únicos que definen tu estilo. Calidad y
-                      elegancia en cada pieza.
-                    </h2>
-                  </div>
-                  <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-primary px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white transition-colors h-10 hover:bg-primary/90 @[480px]:h-12 @[480px]:px-5 @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
-                  >
-                    <span class="truncate">Ver Colección</span>
-                  </button>
-                </div>
-                <div
-                  class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"
-                >
-                  <button class="h-2.5 w-2.5 rounded-full bg-white opacity-90"
-                  ></button>
-                  <button
-                    class="h-2.5 w-2.5 rounded-full bg-white opacity-40 hover:opacity-60"
-                  ></button>
-                  <button
-                    class="h-2.5 w-2.5 rounded-full bg-white opacity-40 hover:opacity-60"
-                  ></button>
-                </div>
-                <button
-                  class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white transition-colors hover:bg-black/50 @[480px]:left-4"
-                >
-                  <span class="material-symbols-outlined">chevron_left</span>
-                </button>
-                <button
-                  class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white transition-colors hover:bg-black/50 @[480px]:right-4"
-                >
-                  <span class="material-symbols-outlined">chevron_right</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="p-4 @container">
+<div class="flex min-h-screen w-full flex-col">
+  <main class="flex-1">
+    <div class="@container">
+      <div class="@[480px]:p-4">
+        <div class="relative min-h-[40vh] overflow-hidden @[480px]:rounded-xl">
+          <div class="absolute inset-0 flex">
             <div
-              class="flex flex-1 flex-col items-start justify-between gap-4 rounded-xl border border-primary/20 bg-background-light p-5 shadow-lg shadow-black/10 dark:border-[#533c3c] dark:bg-[#211111] @[480px]:flex-row @[480px]:items-center"
+              class="h-full w-full flex-shrink-0 bg-cover bg-center bg-no-repeat"
+              data-alt="Close-up of a person with elegant ear piercings wearing gold jewelry."
+              style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuD47kH2z--Fmp1lx-r_EgQRB4SY_8Ang7hPmcP3cntoc2XHkNaCTpcrtZx3hrHndROIFLGbE50-ZDHcMzQYty45K62QwkZKbja1ATbus1An9rQRa7N0JUigK78rKxWdzdKQCEA4EC58eQWmGTxEDgKO8JryFDu7wN96ghG-YTOMjppLgpkuyq69WFWKM2qZ6_tNHFKtZhfSskFgptHaKR7IR33kDeBtOUELTKaVXBWNbxY46sMcjui9Jy-1z5Nj1BcawDDUEc-k3t4");'
             >
-              <div class="flex flex-col gap-1">
-                <p
-                  class="text-base font-bold leading-tight text-black dark:text-white"
-                >
-                  Envío Gratis
-                </p>
-                <p
-                  class="text-base font-normal leading-normal text-gray-600 dark:text-[#b89d9d]"
-                >
-                  En todos los pedidos superiores a 50€
-                </p>
-              </div>
-              <a
-                class="flex items-center gap-2 text-sm font-bold leading-normal tracking-[0.015em] text-primary hover:underline dark:text-white"
-                href="#"
-              >
-                Saber más
-                <span class="material-symbols-outlined text-lg"
-                  >arrow_forward</span
-                >
-              </a>
+            </div>
+            <div
+              class="h-full w-full flex-shrink-0 bg-cover bg-center bg-no-repeat"
+              data-alt="A luxurious gold piercing with intricate details against a dark backdrop."
+              style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLxt4XNb3Fm6wv_Lp04a07yOgeePFY3oCg3G1qrDfw-ZrlnuwU0LUZReftrzz8zK7yMX6OfB02nha0lxS4vrrKcnuUbHJKFW5NGJ0lsH_Uj7nm_0ZVgx4wLPHutd_n2L_JxvicshscjHvWwoByduTT44sCQ3k3e-m1YuywC60hD8aFKwXBoWeDjMUdrELD5-Uv-JpfrnYUUVifBoe8p7j3DexpJ6GYRtYpczlVPqiVQ5Zesr04frrtuWEe_tUUp8aCH9FZ1X1eKpg");'
+            >
+            </div>
+            <div
+              class="h-full w-full flex-shrink-0 bg-cover bg-center bg-no-repeat"
+              data-alt="A person showcasing a stylish nose piercing."
+              style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDczgim3KXYTXwBTobhB_kGoGH2o28Gu35BkXss_c6VQhODWQao-HqolVqBZJ425L3aTvYnK3HUv35mC5wZ9sB3rRmhQTc8YFD7NO7rVM0OcfUVyyjed9vQACv3D7SRWkO2sisD7wG29qzSOIXSexCmPs-mzOvSUsuAmY98p6UBf9J1CfCi2zpkFsDEngU2xlvXyQyDNthpf7TsPdPhhc5xi6Y0kXNsUcU6ygLC0v933gLHJjga_ESzph3DamE4-xmNQDKmc4EXh8o");'
+            >
             </div>
           </div>
-          <h2
-            class="px-4 pb-3 pt-5 text-[22px] font-bold leading-tight tracking-[-0.015em] text-black dark:text-white"
+          <div
+            class="absolute inset-0 flex flex-col items-center justify-center gap-6 p-4 text-center @[480px]:gap-8"
           >
-            Best Sellers
-          </h2>
-          <div class="grid grid-cols-2 gap-4 p-4 md:grid-cols-4">
-            <div
-              class="flex h-full flex-col overflow-hidden rounded-xl border border-transparent bg-white shadow-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl dark:bg-[#261c1c] dark:shadow-none dark:hover:border-primary/40"
-            >
-              <div
-                class="aspect-square w-full bg-cover bg-center bg-no-repeat"
-                data-alt="A 'Aura' septum ring in rose gold on a dark background"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJ8v1CTvWh-GAL6oedTJhv80kpuK9F5XVAnCBfuQMCoE--Y7IkjhChtr6FyvxCd_vquyyeGjn1up2e0U1qGnWy9Ppnk-ptB3vxMnqEUvApNOvli6whPsH7qJ2Nv1C-IU47pQ32R2JRYYdffWozOUB-5BAGVIJxvbL2mEEjXBsceF9wh0SMLH597KveMKYTL_mcrDnBQycVOtpmFEuer1lnDPAlhza0QkeChV1kJhSF7tlj-Gk0zOXm8xsM3bJO7-ySVNoXmYT4wmY");'
+            <div class="flex max-w-2xl flex-col gap-2">
+              <h1
+                class="text-4xl font-black leading-tight tracking-[-0.033em] text-white md:text-6xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
               >
-              </div>
-              <div class="flex flex-1 flex-col justify-between gap-4 p-4">
-                <div class="flex-grow">
-                  <p
-                    class="text-base font-bold leading-normal text-black dark:text-white"
-                  >
-                    Aro Septum 'Aura'
-                  </p>
-                  <p
-                    class="text-sm font-medium leading-normal text-gray-500 dark:text-[#b89d9d]"
-                  >
-                    €89.99
-                  </p>
-                </div>
-                <button
-                  class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-primary bg-primary px-4 text-sm font-bold leading-normal tracking-wide text-white transition-all duration-300 h-10 hover:bg-transparent hover:text-primary"
-                >
-                  <span class="truncate">Añadir al Carrito</span>
-                </button>
-              </div>
-            </div>
-            <div
-              class="flex h-full flex-col overflow-hidden rounded-xl border border-transparent bg-white shadow-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl dark:bg-[#261c1c] dark:shadow-none dark:hover:border-primary/40"
-            >
-              <div
-                class="aspect-square w-full bg-cover bg-center bg-no-repeat"
-                data-alt="A 'Celeste' navel dangle piercing with crystals on a dark background"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBK5JWaWRIavq33tySyPzeQAiR5fDxzX2XotamtKKUYSnsh8fVbvny7cBUMYLgDmmKAPJY95VPH9wzrn-H-TE_cRqN0LmJ2teMNcMAxV9sDSf17scpy0Iv7TsEXWvd-LwfMmjmTk4EMVD34DBMuu2RaiEADfGBKYzJsMPPF64NsoGLGgjho7RaC0phO8GvpRU9kqB39uhpHkRzt-9NmLazt03h4ENYtemQMaCZ8A8_zJA3iYxRwSDKcJFKfKe1Oshprk2J_CVOYz-s");'
+                Joyería Premium para Piercings
+              </h1>
+              <h2
+                class="text-sm font-normal leading-normal text-white md:text-lg @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
               >
-              </div>
-              <div class="flex flex-1 flex-col justify-between gap-4 p-4">
-                <div class="flex-grow">
-                  <p
-                    class="text-base font-bold leading-normal text-black dark:text-white"
-                  >
-                    Navel Dangle 'Celeste'
-                  </p>
-                  <p
-                    class="text-sm font-medium leading-normal text-gray-500 dark:text-[#b89d9d]"
-                  >
-                    €119.99
-                  </p>
-                </div>
-                <button
-                  class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-primary bg-primary px-4 text-sm font-bold leading-normal tracking-wide text-white transition-all duration-300 h-10 hover:bg-transparent hover:text-primary"
-                >
-                  <span class="truncate">Añadir al Carrito</span>
-                </button>
-              </div>
+                Descubre diseños únicos que definen tu estilo. Calidad y
+                elegancia en cada pieza.
+              </h2>
             </div>
-            <div
-              class="flex h-full flex-col overflow-hidden rounded-xl border border-transparent bg-white shadow-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl dark:bg-[#261c1c] dark:shadow-none dark:hover:border-primary/40"
+            <button
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-primary px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white transition-colors h-10 hover:bg-primary/90 @[480px]:h-12 @[480px]:px-5 @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
             >
-              <div
-                class="aspect-square w-full bg-cover bg-center bg-no-repeat"
-                data-alt="An 'Ethereal' ear stack set with multiple gold piercings"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDTo3-0Op0R6F8wZitDoFlZCpjw4N9JU21hElIvtzCka-GkFXiYrJ6fv9nOKajHas7oZ_zEL_DGqAgDbMXZhrQMkqQbVMa8eDI6L_6dp7AN2ryW0lQGJ4FTqzCCE7rRaLmCCp36o_QBq6MMemX1gDCSCq1RtR-fe-IsyiGXerV9jMBXlOuCKwHrnzeJGnI4xnnE1YW3TDoYZfxO0t8TlbatvppnJmUu4ZFRv2v2CtfFhWfmBxsFHRKjffA6M26wLefw9sQT-VLBREo");'
-              >
-              </div>
-              <div class="flex flex-1 flex-col justify-between gap-4 p-4">
-                <div class="flex-grow">
-                  <p
-                    class="text-base font-bold leading-normal text-black dark:text-white"
-                  >
-                    Ear Stack 'Ethereal'
-                  </p>
-                  <p
-                    class="text-sm font-medium leading-normal text-gray-500 dark:text-[#b89d9d]"
-                  >
-                    €249.99
-                  </p>
-                </div>
-                <button
-                  class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-primary bg-primary px-4 text-sm font-bold leading-normal tracking-wide text-white transition-all duration-300 h-10 hover:bg-transparent hover:text-primary"
-                >
-                  <span class="truncate">Añadir al Carrito</span>
-                </button>
-              </div>
-            </div>
-            <div
-              class="flex h-full flex-col overflow-hidden rounded-xl border border-transparent bg-white shadow-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl dark:bg-[#261c1c] dark:shadow-none dark:hover:border-primary/40"
-            >
-              <div
-                class="aspect-square w-full bg-cover bg-center bg-no-repeat"
-                data-alt="A 'Serpent' nipple bar piercing in silver on a dark background"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDRbbgRssx2pmzX_Jnv1RMi020PH4fZl_eqGBmz7A8pJZEvY1-U92eJxE2_kAmtbc-oHzPk2xXWAe_Sy7kcHmr1kZJRwKW5rFnmlc0AEEsl4ie049YRlkeUD6i495K7XDDluhPp30Fq9dHk5GcJ34Kvs-7i8FSxxps0Ilahqa4UG6KGHIiRzpsNJgfV5NK_3r-NTulIGaRQaduISJ5Ez1Rvufk3BssdeuZ0yfGJjcV8GxHpfinT-Ctqiu5-mH2b_rxVCWEv64hUci4");'
-              >
-              </div>
-              <div class="flex flex-1 flex-col justify-between gap-4 p-4">
-                <div class="flex-grow">
-                  <p
-                    class="text-base font-bold leading-normal text-black dark:text-white"
-                  >
-                    Nipple Bar 'Serpent'
-                  </p>
-                  <p
-                    class="text-sm font-medium leading-normal text-gray-500 dark:text-[#b89d9d]"
-                  >
-                    €139.99
-                  </p>
-                </div>
-                <button
-                  class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-primary bg-primary px-4 text-sm font-bold leading-normal tracking-wide text-white transition-all duration-300 h-10 hover:bg-transparent hover:text-primary"
-                >
-                  <span class="truncate">Añadir al Carrito</span>
-                </button>
-              </div>
-            </div>
+              <span class="truncate">Ver Colección</span>
+            </button>
           </div>
-          <h2
-            class="px-4 pb-3 pt-8 text-[22px] font-bold leading-tight tracking-[-0.015em] text-black dark:text-white"
+          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <button class="h-2.5 w-2.5 rounded-full bg-white opacity-90"
+            ></button>
+            <button
+              class="h-2.5 w-2.5 rounded-full bg-white opacity-40 hover:opacity-60"
+            ></button>
+            <button
+              class="h-2.5 w-2.5 rounded-full bg-white opacity-40 hover:opacity-60"
+            ></button>
+          </div>
+          <button
+            class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white transition-colors hover:bg-black/50 @[480px]:left-4"
           >
-            Explora Nuestras Categorías
-          </h2>
-          <div class="grid grid-cols-2 gap-4 p-4 md:grid-cols-3">
-            <a
-              class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
-              href="#"
-            >
-              <div
-                class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
-                data-alt="Close-up of a curated ear with multiple piercings."
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxB7aWYlEDR-jqOdLEmDMyAWigtWOjY9Y7ODznOaOijHUQ8Xgh9aP8C4x7Yu350VDBGfDtL9r4HyWTxZk1I3EDR0b-n1plE3_GtRF37k4smvO7gSpMCtCw-7iEOC-GrKyLs3cSCgD4AIBNiZD0Df5ab5wA2Y0TFz2FpaFIowdoCA-2q-QZFUD5pjpAXeoPFbCmwVrtzLCI9uBYev1RqyHMO0CFthavLeUT-z1wntJqJdtAozWCn6u_aRtFzViHdkeH1FYHuJ9qU9s')"
-              >
-              </div>
-              <div class="absolute inset-0 bg-black/50"></div>
-              <h3 class="relative text-xl font-bold text-white">Oreja</h3>
-            </a>
-            <a
-              class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
-              href="#"
-            >
-              <div
-                class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
-                data-alt="Close-up of a person with a stylish nose piercing."
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDczgim3KXYTXwBTobhB_kGoGH2o28Gu35BkXss_c6VQhODWQao-HqolVqBZJ425L3aTvYnK3HUv35mC5wZ9sB3rRmhQTc8YFD7NO7rVM0OcfUVyyjed9vQACv3D7SRWkO2sisD7wG29qzSOIXSexCmPs-mzOvSUsuAmY98p6UBf9J1CfCi2zpkFsDEngU2xlvXyQyDNthpf7TsPdPhhc5xi6Y0kXNsUcU6ygLC0v933gLHJjga_ESzph3DamE4-xmNQDKmc4EXh8o')"
-              >
-              </div>
-              <div class="absolute inset-0 bg-black/50"></div>
-              <h3 class="relative text-xl font-bold text-white">Nariz</h3>
-            </a>
-            <a
-              class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
-              href="#"
-            >
-              <div
-                class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
-                data-alt="An exquisite and luxurious piece of piercing jewelry."
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCLxt4XNb3Fm6wv_Lp04a07yOgeePFY3oCg3G1qrDfw-ZrlnuwU0LUZReftrzz8zK7yMX6OfB02nha0lxS4vrrKcnuUbHJKFW5NGJ0lsH_Uj7nm_0ZVgx4wLPHutd_n2L_JxvicshscjHvWwoByduTT44sCQ3k3e-m1YuywC60hD8aFKwXBoWeDjMUdrELD5-Uv-JpfrnYUUVifBoe8p7j3DexpJ6GYRtYpczlVPqiVQ5Zesr04frrtuWEe_tUUp8aCH9FZ1X1eKpg')"
-              >
-              </div>
-              <div class="absolute inset-0 bg-black/50"></div>
-              <h3 class="relative text-xl font-bold text-white">Luxury</h3>
-            </a>
-            <a
-              class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
-              href="#"
-            >
-              <div
-                class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
-                data-alt="A person showing a delicate navel piercing."
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6ukoXsN_AVhg_NscPK3jqx0mSC6U2msgi_HM6cxDf8j2iMEvCdw0lfUe0My0XOfR_LmjOTj4iCxVlSkNhN-gyEDpRSERjli4D8niZSYE5EuK8a-dxF_laQZO447qI09w9LL3En3T4QkLsU8ZJw9GrWQh8whLvx0poE-d0hfp5Dd11l4Odf7_dGukaDLtySeaoCKOlEaCsfeEIdmtjG025TVui-mdhS-KIZ8Q34EJsfr9G8UFKCDGTD6glb143CbeeCWqTMQnMvkI')"
-              >
-              </div>
-              <div class="absolute inset-0 bg-black/50"></div>
-              <h3 class="relative text-xl font-bold text-white">Ombligo</h3>
-            </a>
-            <a
-              class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
-              href="#"
-            >
-              <div
-                class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
-                data-alt="A subtle and elegant nipple piercing."
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKBWrzljTFNlA_YuSGsFNpSZD4TOJyusVnLb8yOwwarUWFUEqOOoM1KATqdQfKvyoh222UtwwBtrgE80Mp2lSH2jf7dLCbcNgEVGsb-C_lf5meeWIcIM1Odvb7UZN1b_3PPMYT9UkWXRs-JWPNrobvCqwbYwd8E59jwYS6wE07em7_tCUVFwV14_4NdSEKDaPlaE9vQ4ngIkYXRcJxVPNkBDBwiAcLgTxNPKqb0MMohNrYQpG3tgLwjWtkuttdLGjk7eBQMUxLPBU')"
-              >
-              </div>
-              <div class="absolute inset-0 bg-black/50"></div>
-              <h3 class="relative text-xl font-bold text-white">Nipple</h3>
-            </a>
-            <a
-              class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
-              href="#"
-            >
-              <div
-                class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
-                data-alt="A collection of classic and modern earrings."
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQJ-z3j-fue3Jpa_B-a9FX9SnX-ZstE--FQJHhNNO6u6qlg9rEiXYRAQdP1PltK5Na-fczgUZlwKiC26HNk-Veobm3MM_jbNl8qZfcaiTlFg00fUX5H89PXBNOB5T1S-zlDDnAAj76rVzKJLhyxkAw0N5TYtuB3_FPJkH--UBm7ZWnBSvfyvJ4eC3hY7oYq0nyhPubKDnHhcI8WaqIRbq2DeuPBHy7kuVKW14y71ZdHlJBvNwlwj7HHebfE43u_W2e40TkhzCBFng')"
-              >
-              </div>
-              <div class="absolute inset-0 bg-black/50"></div>
-              <h3 class="relative text-xl font-bold text-white">Aretes</h3>
-            </a>
-          </div>
-        </main>
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <button
+            class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white transition-colors hover:bg-black/50 @[480px]:right-4"
+          >
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
       </div>
-</BaseLayout>
+    </div>
+    <div class="p-4 @container">
+      <div
+        class="flex flex-1 flex-col items-start justify-between gap-4 rounded-xl border border-primary/20 bg-background-light p-5 shadow-lg shadow-black/10 dark:border-[#533c3c] dark:bg-[#211111] @[480px]:flex-row @[480px]:items-center"
+      >
+        <div class="flex flex-col gap-1">
+          <p
+            class="text-base font-bold leading-tight text-black dark:text-white"
+          >
+            Envío Gratis
+          </p>
+          <p
+            class="text-base font-normal leading-normal text-gray-600 dark:text-[#b89d9d]"
+          >
+            En todos los pedidos superiores a 50€
+          </p>
+        </div>
+        <a
+          class="flex items-center gap-2 text-sm font-bold leading-normal tracking-[0.015em] text-primary hover:underline dark:text-white"
+          href="#"
+        >
+          Saber más
+          <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+    <h2
+      class="px-4 pb-3 pt-5 text-[22px] font-bold leading-tight tracking-[-0.015em] text-black dark:text-white"
+    >
+      Best Sellers
+    </h2>
+    <div class="grid grid-cols-2 gap-4 p-4 md:grid-cols-4">
+      <div
+        class="flex h-full flex-col overflow-hidden rounded-xl border border-transparent bg-white shadow-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl dark:bg-[#261c1c] dark:shadow-none dark:hover:border-primary/40"
+      >
+        <div
+          class="aspect-square w-full bg-cover bg-center bg-no-repeat"
+          data-alt="A 'Aura' septum ring in rose gold on a dark background"
+          style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJ8v1CTvWh-GAL6oedTJhv80kpuK9F5XVAnCBfuQMCoE--Y7IkjhChtr6FyvxCd_vquyyeGjn1up2e0U1qGnWy9Ppnk-ptB3vxMnqEUvApNOvli6whPsH7qJ2Nv1C-IU47pQ32R2JRYYdffWozOUB-5BAGVIJxvbL2mEEjXBsceF9wh0SMLH597KveMKYTL_mcrDnBQycVOtpmFEuer1lnDPAlhza0QkeChV1kJhSF7tlj-Gk0zOXm8xsM3bJO7-ySVNoXmYT4wmY");'
+        >
+        </div>
+        <div class="flex flex-1 flex-col justify-between gap-4 p-4">
+          <div class="flex-grow">
+            <p
+              class="text-base font-bold leading-normal text-black dark:text-white"
+            >
+              Aro Septum 'Aura'
+            </p>
+            <p
+              class="text-sm font-medium leading-normal text-gray-500 dark:text-[#b89d9d]"
+            >
+              €89.99
+            </p>
+          </div>
+          <button
+            class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-primary bg-primary px-4 text-sm font-bold leading-normal tracking-wide text-white transition-all duration-300 h-10 hover:bg-transparent hover:text-primary"
+          >
+            <span class="truncate">Añadir al Carrito</span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex h-full flex-col overflow-hidden rounded-xl border border-transparent bg-white shadow-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl dark:bg-[#261c1c] dark:shadow-none dark:hover:border-primary/40"
+      >
+        <div
+          class="aspect-square w-full bg-cover bg-center bg-no-repeat"
+          data-alt="A 'Celeste' navel dangle piercing with crystals on a dark background"
+          style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBK5JWaWRIavq33tySyPzeQAiR5fDxzX2XotamtKKUYSnsh8fVbvny7cBUMYLgDmmKAPJY95VPH9wzrn-H-TE_cRqN0LmJ2teMNcMAxV9sDSf17scpy0Iv7TsEXWvd-LwfMmjmTk4EMVD34DBMuu2RaiEADfGBKYzJsMPPF64NsoGLGgjho7RaC0phO8GvpRU9kqB39uhpHkRzt-9NmLazt03h4ENYtemQMaCZ8A8_zJA3iYxRwSDKcJFKfKe1Oshprk2J_CVOYz-s");'
+        >
+        </div>
+        <div class="flex flex-1 flex-col justify-between gap-4 p-4">
+          <div class="flex-grow">
+            <p
+              class="text-base font-bold leading-normal text-black dark:text-white"
+            >
+              Navel Dangle 'Celeste'
+            </p>
+            <p
+              class="text-sm font-medium leading-normal text-gray-500 dark:text-[#b89d9d]"
+            >
+              €119.99
+            </p>
+          </div>
+          <button
+            class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-primary bg-primary px-4 text-sm font-bold leading-normal tracking-wide text-white transition-all duration-300 h-10 hover:bg-transparent hover:text-primary"
+          >
+            <span class="truncate">Añadir al Carrito</span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex h-full flex-col overflow-hidden rounded-xl border border-transparent bg-white shadow-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl dark:bg-[#261c1c] dark:shadow-none dark:hover:border-primary/40"
+      >
+        <div
+          class="aspect-square w-full bg-cover bg-center bg-no-repeat"
+          data-alt="An 'Ethereal' ear stack set with multiple gold piercings"
+          style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDTo3-0Op0R6F8wZitDoFlZCpjw4N9JU21hElIvtzCka-GkFXiYrJ6fv9nOKajHas7oZ_zEL_DGqAgDbMXZhrQMkqQbVMa8eDI6L_6dp7AN2ryW0lQGJ4FTqzCCE7rRaLmCCp36o_QBq6MMemX1gDCSCq1RtR-fe-IsyiGXerV9jMBXlOuCKwHrnzeJGnI4xnnE1YW3TDoYZfxO0t8TlbatvppnJmUu4ZFRv2v2CtfFhWfmBxsFHRKjffA6M26wLefw9sQT-VLBREo");'
+        >
+        </div>
+        <div class="flex flex-1 flex-col justify-between gap-4 p-4">
+          <div class="flex-grow">
+            <p
+              class="text-base font-bold leading-normal text-black dark:text-white"
+            >
+              Ear Stack 'Ethereal'
+            </p>
+            <p
+              class="text-sm font-medium leading-normal text-gray-500 dark:text-[#b89d9d]"
+            >
+              €249.99
+            </p>
+          </div>
+          <button
+            class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-primary bg-primary px-4 text-sm font-bold leading-normal tracking-wide text-white transition-all duration-300 h-10 hover:bg-transparent hover:text-primary"
+          >
+            <span class="truncate">Añadir al Carrito</span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex h-full flex-col overflow-hidden rounded-xl border border-transparent bg-white shadow-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl dark:bg-[#261c1c] dark:shadow-none dark:hover:border-primary/40"
+      >
+        <div
+          class="aspect-square w-full bg-cover bg-center bg-no-repeat"
+          data-alt="A 'Serpent' nipple bar piercing in silver on a dark background"
+          style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDRbbgRssx2pmzX_Jnv1RMi020PH4fZl_eqGBmz7A8pJZEvY1-U92eJxE2_kAmtbc-oHzPk2xXWAe_Sy7kcHmr1kZJRwKW5rFnmlc0AEEsl4ie049YRlkeUD6i495K7XDDluhPp30Fq9dHk5GcJ34Kvs-7i8FSxxps0Ilahqa4UG6KGHIiRzpsNJgfV5NK_3r-NTulIGaRQaduISJ5Ez1Rvufk3BssdeuZ0yfGJjcV8GxHpfinT-Ctqiu5-mH2b_rxVCWEv64hUci4");'
+        >
+        </div>
+        <div class="flex flex-1 flex-col justify-between gap-4 p-4">
+          <div class="flex-grow">
+            <p
+              class="text-base font-bold leading-normal text-black dark:text-white"
+            >
+              Nipple Bar 'Serpent'
+            </p>
+            <p
+              class="text-sm font-medium leading-normal text-gray-500 dark:text-[#b89d9d]"
+            >
+              €139.99
+            </p>
+          </div>
+          <button
+            class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-primary bg-primary px-4 text-sm font-bold leading-normal tracking-wide text-white transition-all duration-300 h-10 hover:bg-transparent hover:text-primary"
+          >
+            <span class="truncate">Añadir al Carrito</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <h2
+      class="px-4 pb-3 pt-8 text-[22px] font-bold leading-tight tracking-[-0.015em] text-black dark:text-white"
+    >
+      Explora Nuestras Categorías
+    </h2>
+    <div class="grid grid-cols-2 gap-4 p-4 md:grid-cols-3">
+      <a
+        class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
+        href="#"
+      >
+        <div
+          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
+          data-alt="Close-up of a curated ear with multiple piercings."
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxB7aWYlEDR-jqOdLEmDMyAWigtWOjY9Y7ODznOaOijHUQ8Xgh9aP8C4x7Yu350VDBGfDtL9r4HyWTxZk1I3EDR0b-n1plE3_GtRF37k4smvO7gSpMCtCw-7iEOC-GrKyLs3cSCgD4AIBNiZD0Df5ab5wA2Y0TFz2FpaFIowdoCA-2q-QZFUD5pjpAXeoPFbCmwVrtzLCI9uBYev1RqyHMO0CFthavLeUT-z1wntJqJdtAozWCn6u_aRtFzViHdkeH1FYHuJ9qU9s')"
+        >
+        </div>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <h3 class="relative text-xl font-bold text-white">Oreja</h3>
+      </a>
+      <a
+        class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
+        href="#"
+      >
+        <div
+          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
+          data-alt="Close-up of a person with a stylish nose piercing."
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDczgim3KXYTXwBTobhB_kGoGH2o28Gu35BkXss_c6VQhODWQao-HqolVqBZJ425L3aTvYnK3HUv35mC5wZ9sB3rRmhQTc8YFD7NO7rVM0OcfUVyyjed9vQACv3D7SRWkO2sisD7wG29qzSOIXSexCmPs-mzOvSUsuAmY98p6UBf9J1CfCi2zpkFsDEngU2xlvXyQyDNthpf7TsPdPhhc5xi6Y0kXNsUcU6ygLC0v933gLHJjga_ESzph3DamE4-xmNQDKmc4EXh8o')"
+        >
+        </div>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <h3 class="relative text-xl font-bold text-white">Nariz</h3>
+      </a>
+      <a
+        class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
+        href="#"
+      >
+        <div
+          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
+          data-alt="An exquisite and luxurious piece of piercing jewelry."
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCLxt4XNb3Fm6wv_Lp04a07yOgeePFY3oCg3G1qrDfw-ZrlnuwU0LUZReftrzz8zK7yMX6OfB02nha0lxS4vrrKcnuUbHJKFW5NGJ0lsH_Uj7nm_0ZVgx4wLPHutd_n2L_JxvicshscjHvWwoByduTT44sCQ3k3e-m1YuywC60hD8aFKwXBoWeDjMUdrELD5-Uv-JpfrnYUUVifBoe8p7j3DexpJ6GYRtYpczlVPqiVQ5Zesr04frrtuWEe_tUUp8aCH9FZ1X1eKpg')"
+        >
+        </div>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <h3 class="relative text-xl font-bold text-white">Luxury</h3>
+      </a>
+      <a
+        class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
+        href="#"
+      >
+        <div
+          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
+          data-alt="A person showing a delicate navel piercing."
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6ukoXsN_AVhg_NscPK3jqx0mSC6U2msgi_HM6cxDf8j2iMEvCdw0lfUe0My0XOfR_LmjOTj4iCxVlSkNhN-gyEDpRSERjli4D8niZSYE5EuK8a-dxF_laQZO447qI09w9LL3En3T4QkLsU8ZJw9GrWQh8whLvx0poE-d0hfp5Dd11l4Odf7_dGukaDLtySeaoCKOlEaCsfeEIdmtjG025TVui-mdhS-KIZ8Q34EJsfr9G8UFKCDGTD6glb143CbeeCWqTMQnMvkI')"
+        >
+        </div>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <h3 class="relative text-xl font-bold text-white">Ombligo</h3>
+      </a>
+      <a
+        class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
+        href="#"
+      >
+        <div
+          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
+          data-alt="A subtle and elegant nipple piercing."
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKBWrzljTFNlA_YuSGsFNpSZD4TOJyusVnLb8yOwwarUWFUEqOOoM1KATqdQfKvyoh222UtwwBtrgE80Mp2lSH2jf7dLCbcNgEVGsb-C_lf5meeWIcIM1Odvb7UZN1b_3PPMYT9UkWXRs-JWPNrobvCqwbYwd8E59jwYS6wE07em7_tCUVFwV14_4NdSEKDaPlaE9vQ4ngIkYXRcJxVPNkBDBwiAcLgTxNPKqb0MMohNrYQpG3tgLwjWtkuttdLGjk7eBQMUxLPBU')"
+        >
+        </div>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <h3 class="relative text-xl font-bold text-white">Nipple</h3>
+      </a>
+      <a
+        class="group relative flex h-48 items-center justify-center overflow-hidden rounded-xl shadow-lg md:h-64"
+        href="#"
+      >
+        <div
+          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
+          data-alt="A collection of classic and modern earrings."
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQJ-z3j-fue3Jpa_B-a9FX9SnX-ZstE--FQJHhNNO6u6qlg9rEiXYRAQdP1PltK5Na-fczgUZlwKiC26HNk-Veobm3MM_jbNl8qZfcaiTlFg00fUX5H89PXBNOB5T1S-zlDDnAAj76rVzKJLhyxkAw0N5TYtuB3_FPJkH--UBm7ZWnBSvfyvJ4eC3hY7oYq0nyhPubKDnHhcI8WaqIRbq2DeuPBHy7kuVKW14y71ZdHlJBvNwlwj7HHebfE43u_W2e40TkhzCBFng')"
+        >
+        </div>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <h3 class="relative text-xl font-bold text-white">Aretes</h3>
+      </a>
+    </div>
+  </main>
+</div>
 
 <script>
   const urlHost = window.location.host;
