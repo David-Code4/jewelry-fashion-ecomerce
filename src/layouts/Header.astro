@@ -134,7 +134,9 @@ import {
   <div class="mt-6 border-t border-white/5">
     <div class="flex pl-2 items-center">
       <SignedOut>
-        <SignInButton mode="modal" />
+        <SignInButton asChild mode="modal">
+            <button>Iniciar sesión</button>
+        </SignInButton>
       </SignedOut>
       <SignedIn>
         <UserButton />
