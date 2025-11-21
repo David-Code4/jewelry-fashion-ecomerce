@@ -15,6 +15,63 @@ try {
 ---
 
 <BaseLayout>
+  <nav class="bg-gray-900 pb-7 p-9 text-white">
+    <!-- Menú -->
+    <!-- CONTENEDOR COMPLETO -->
+    <div class="relative md:static w-full">
+      <!-- Flecha izquierda -->
+      <button
+        id="cat-left"
+        class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800/80 text-white p-2 rounded-full shadow-md
+           md:hidden z-20"
+      >
+        <span class="material-symbols-outlined">chevron_left</span>
+      </button>
+
+      <!-- CARRUSEL -->
+      <div
+        id="carousel-container"
+        class="flex md:hidden justify-center items-center w-full overflow-hidden py-2"
+      >
+        <div
+          id="carousel-item"
+          class="text-white text-sm font-medium tracking-widest"
+        >
+          <!-- Aquí se cargará dinámicamente cada categoría -->
+        </div>
+      </div>
+
+      <!-- Flecha derecha -->
+      <button
+        id="cat-right"
+        class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800/80 text-white p-2 rounded-full shadow-md
+           md:hidden z-20"
+      >
+        <span class="material-symbols-outlined">chevron_right</span>
+      </button>
+
+      <!-- Menú desktop normal -->
+      <div
+        id="menu-desktop"
+        class="hidden
+           md:flex md:flex-row md:space-x-15 md:justify-center md:items-center
+           md:text-xs md:font-medium md:tracking-widest"
+      >
+        <a class="hover:text-primary transition-colors" href="#"
+          >PIERCING OREJA</a
+        >
+        <a class="hover:text-primary transition-colors" href="#"
+          >PIERCING NARIZ</a
+        >
+        <a class="hover:text-primary transition-colors" href="#">LUXURY ORO</a>
+        <a class="hover:text-primary transition-colors" href="#">TITANIO</a>
+        <a class="hover:text-primary transition-colors" href="#">COLECCIONES</a>
+        <a class="hover:text-primary transition-colors" href="#">ACCESORIOS</a>
+        <a class="hover:text-primary transition-colors" href="#">ARETES</a>
+      </div>
+    </div>
+  </nav>
+
   <div
     class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-[#000000] group/design-root overflow-x-hidden"
   >
@@ -163,5 +220,66 @@ try {
     } catch (e) {
       console.error(e);
     }
+    //---------------------------------
+    const categories = [
+      { name: "PIERCING OREJA", link: "/categoria/piercing-oreja" },
+      { name: "PIERCING NARIZ", link: "/categoria/piercing-nariz" },
+      { name: "LUXURY ORO", link: "/categoria/luxury-oro" },
+      { name: "TITANIO", link: "/categoria/titanio" },
+      { name: "COLECCIONES", link: "/categoria/colecciones" },
+      { name: "ACCESORIOS", link: "/categoria/accesorios" },
+      { name: "ARETES", link: "/categoria/aretes" },
+    ];
+
+    let index = 0;
+
+    const item = document.getElementById("carousel-item");
+    const leftBtn = document.getElementById("cat-left");
+    const rightBtn = document.getElementById("cat-right");
+
+    function updateCategoryAnimated() {
+      // Fade out
+      item.classList.add("opacity-0");
+
+      setTimeout(() => {
+        // Cambiar el contenido a un enlace clickeable
+        const cat = categories[index];
+        item.innerHTML = `<a href="${cat.link}" class="transition-opacity duration-500 opacity-100 text-white">${cat.name}</a>`;
+
+        // Fade in
+        item.classList.remove("opacity-0");
+      }, 300); // Duración del fade-out
+    }
+
+    // Inicializar
+    item.classList.add("transition-opacity", "duration-500");
+    updateCategoryAnimated();
+
+    // Avance automático cada 4 segundos
+    let autoSlide = setInterval(() => {
+      index = (index + 1) % categories.length;
+      updateCategoryAnimated();
+    }, 4000);
+
+    // Reiniciar autoplay al usar flechas
+    function resetAutoSlide() {
+      clearInterval(autoSlide);
+      autoSlide = setInterval(() => {
+        index = (index + 1) % categories.length;
+        updateCategoryAnimated();
+      }, 4000);
+    }
+
+    leftBtn.addEventListener("click", () => {
+      index = (index - 1 + categories.length) % categories.length;
+      updateCategoryAnimated();
+      resetAutoSlide();
+    });
+
+    rightBtn.addEventListener("click", () => {
+      index = (index + 1) % categories.length;
+      updateCategoryAnimated();
+      resetAutoSlide();
+    });
   });
 </script>
