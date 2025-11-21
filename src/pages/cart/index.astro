@@ -3,88 +3,164 @@ import BaseLayout from "../../layouts/Layout.astro";
 ---
 
 <BaseLayout>
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-white text-2xl font-bold mb-6">Carrito</h1>
-
-    <div id="cart-empty" class="text-gray-400">Tu carrito está vacío.</div>
-
-    <div id="cart-list" class="space-y-4 hidden">
-      <div id="cart-items" class="space-y-4"></div>
-      <div class="flex items-center justify-between mt-6">
-        <div class="text-white font-bold">Total:</div>
-        <div id="cart-total" class="text-white font-bold text-xl">$0.00</div>
+  <div class="container mx-auto px-40 py-8">
+    <main class="flex-grow px-4">
+      <h1 class="text-white text-2xl font-bold mb-6">Carrito</h1>
+      <div id="cart-empty" class="text-gray-400">Tu carrito está vacío.</div>
+      <div id="cart-list" class="flex flex-col gap-8 py-4"></div>
+    </main>
+    <div
+      class="sticky bottom-0 left-0 right-0 mt-8 bg-black/80 backdrop-blur-sm p-4 pt-2 border-t border-white/10"
+    >
+      <div class="bg-transparent rounded-lg p-0 mb-4">
+        <div class="flex justify-between gap-x-6 py-2">
+          <p class="text-white/60 text-sm font-normal leading-normal">
+            Subtotal
+          </p>
+          <p
+            id="cart-subtotal"
+            class="text-white text-sm font-semibold leading-normal text-right"
+          >
+          </p>
+        </div>
+        <div class="flex justify-between gap-x-6 py-2">
+          <p class="text-white/60 text-sm font-normal leading-normal">Envío</p>
+          <p class="text-white text-sm font-normal leading-normal text-right">
+            Calculado en el siguiente paso
+          </p>
+        </div>
+        <div class="flex justify-between gap-x-6 pt-3">
+          <p class="text-white text-base font-bold leading-normal">Total</p>
+          <p
+            id="cart-total"
+            class="text-white text-base font-bold leading-normal text-right"
+          >
+          </p>
+        </div>
       </div>
-      <div class="mt-4 flex gap-3">
-        <a href="/checkout" class="px-4 py-3 bg-primary text-white rounded">Ir a pagar</a>
-        <button id="clear-cart" class="px-4 py-3 bg-bg-accent-dark text-white rounded">Vaciar carrito</button>
-      </div>
+      <a href="/checkout" class="cursor-pointer">
+        <button
+          class="w-full bg-primary cursor-pointer text-white font-bold text-base py-4 rounded-lg shadow-[0_5px_15px_rgba(164,0,0,0.4)] hover:bg-red-800 transition-colors"
+        >
+          Continuar al Pago
+        </button>
+      </a>
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  (function(){
-    const emptyEl = document.getElementById('cart-empty');
-    const listEl = document.getElementById('cart-list');
-    const itemsEl = document.getElementById('cart-items');
-    const totalEl = document.getElementById('cart-total');
-    const clearBtn = document.getElementById('clear-cart');
+  window.addEventListener("DOMContentLoaded", () => {
+    const emptyEl = document.getElementById("cart-empty");
+    const listEl = document.getElementById("cart-list");
+    const totalEl = document.getElementById("cart-total");
+    const subtotalEl = document.getElementById("cart-subtotal");
 
-    function formatPrice(v){
-      return '$' + (Number(v) || 0).toFixed(2);
-    }
+    const formatPrice = (value: number) => {
+      const number = Number(value) || 0;
+      return number.toLocaleString("es-CO", {
+        style: "currency",
+        currency: "COP",
+        minimumFractionDigits: 0,
+      });
+    };
 
-    function render(){
+    function render() {
       const cart = (window.cartApi && window.cartApi.getCart()) || [];
-      if(!cart || cart.length === 0){
-        emptyEl && (emptyEl.style.display = 'block');
-        listEl && (listEl.classList.add('hidden'));
+
+      if (!cart.length) {
+        emptyEl.style.display = "block";
+        listEl.classList.add("hidden");
+        totalEl.textContent = formatPrice(0);
+        subtotalEl.textContent = formatPrice(0);
         return;
       }
-      emptyEl && (emptyEl.style.display = 'none');
-      listEl && (listEl.classList.remove('hidden'));
-      itemsEl.innerHTML = '';
+
+      emptyEl.style.display = "none";
+      listEl.classList.remove("hidden");
+      listEl.innerHTML = "";
+
       let total = 0;
-      cart.forEach(item => {
-        total += (Number(item.price) || 0) * (item.quantity || 1);
-        const wrapper = document.createElement('div');
-        wrapper.className = 'flex items-center gap-4 bg-bg-accent-darker p-4 rounded';
+
+      cart.forEach((item) => {
+        total += item.price * item.quantity;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "flex flex-col gap-4 border-b border-white/10 pb-4";
+
         wrapper.innerHTML = `
-          <div class="w-20 h-20 bg-center bg-cover rounded" style="background-image: url('${item.image || ''}');"></div>
-          <div class="flex-1">
-            <div class="text-white font-semibold">${item.name}</div>
-            <div class="text-gray-400 text-sm">${formatPrice(item.price)}</div>
+        <div class="flex w-full items-center gap-4">
+          <div class="bg-cover bg-center rounded-lg size-24 shrink-0"
+               style="background-image:url('${item.image || ""}')"></div>
+
+          <div class="flex flex-1 flex-col">
+            <p class="text-white text-base font-medium">${item.name}</p>
+            <p class="text-white/60 text-sm">${item.descripcion_material || ""}</p>
+            <p class="text-white font-semibold mt-1">
+              ${formatPrice(item.price)}
+            </p>
           </div>
-          <div class="flex items-center gap-2">
-            <input data-id="${item.id}" type="number" min="1" value="${item.quantity}" class="w-16 p-1 rounded bg-black/40 text-white text-center" />
-            <button data-remove="${item.id}" class="px-3 py-1 bg-red-600 text-white rounded">Eliminar</button>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <button data-remove="${item.id}"
+            class="remove-btn cursor-pointer hover:bg-red-950 rounded-sm p-2 flex items-center gap-2 text-white/60 hover:text-primary">
+            <span class="material-symbols-outlined !text-xl">delete</span>
+            <span class="text-sm font-medium">Eliminar</span>
+          </button>
+
+          <div class="flex items-center gap-4 text-white">
+            <button data-minus="${item.id}"
+              class="qty-btn cursor-pointer flex h-8 w-8 items-center justify-center rounded-full border border-white/30 hover:bg-white/10">-</button>
+            <span class="w-5 text-center">${item.quantity}</span>
+            <button data-plus="${item.id}"
+              class="qty-btn cursor-pointer flex h-8 w-8 items-center justify-center rounded-full border border-white/30 hover:bg-white/10">+</button>
           </div>
-        `;
-        itemsEl.appendChild(wrapper);
+        </div>
+      `;
+
+        listEl.appendChild(wrapper);
       });
-      totalEl && (totalEl.textContent = formatPrice(total));
-      // attach listeners
-      itemsEl.querySelectorAll('input[type="number"]').forEach(inp => {
-        inp.addEventListener('change', (e) => {
-          const id = inp.getAttribute('data-id');
-          const qty = Number(inp.value || 1);
-          window.cartApi.updateQty(id, qty);
-        });
+
+      totalEl.textContent = formatPrice(total);
+      subtotalEl.textContent = formatPrice(total);
+
+      bindControls();
+    }
+
+    function bindControls() {
+      // Eliminar producto
+      document.querySelectorAll("[data-remove]").forEach((btn) => {
+        btn.onclick = () => {
+          window.cartApi.removeItem(btn.dataset.remove);
+        };
       });
-      itemsEl.querySelectorAll('button[data-remove]').forEach(btn => {
-        btn.addEventListener('click', (e)=>{
-          const id = btn.getAttribute('data-remove');
-          window.cartApi.removeItem(id);
-        });
+
+      // Botón +
+      document.querySelectorAll("[data-plus]").forEach((btn) => {
+        btn.onclick = () => {
+          const id = btn.dataset.plus;
+          const item = window.cartApi.getCart().find((p) => p.id == id);
+          window.cartApi.updateQty(id, item.quantity + 1);
+        };
+      });
+
+      // Botón -
+      document.querySelectorAll("[data-minus]").forEach((btn) => {
+        btn.onclick = () => {
+          const id = btn.dataset.minus;
+          const item = window.cartApi.getCart().find((p) => p.id == id);
+
+          if (item.quantity <= 1) {
+            window.cartApi.removeItem(id);
+          } else {
+            window.cartApi.updateQty(id, item.quantity - 1);
+          }
+        };
       });
     }
 
-    window.addEventListener('cartchange', render);
-    // initial render
-    setTimeout(render, 50);
-
-    clearBtn && clearBtn.addEventListener('click', ()=>{
-      if(window.cartApi) window.cartApi.clearCart();
-    });
-  })();
+    window.addEventListener("cartchange", render);
+    render();
+  });
 </script>
