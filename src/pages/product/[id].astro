@@ -1,37 +1,91 @@
 ---
 import BaseLayout from "../../layouts/Layout.astro";
 
-// Variables
-let productsRelationShip = [];
-let productSelected = null;
+// 1. GENERAR RUTAS ESTÁTICAS
+export async function getStaticPaths() {
+  try {
+    const response = await fetch(
+      "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_products/home/?nocache=12345"
+    );
 
+    const products = await response.json();
+
+    return products.map((product) => ({
+      params: { id: product.id.toString() },
+    }));
+  } catch (error) {
+    console.error("Error obteniendo productos:", error);
+    return [];
+  }
+}
+
+// 2. OBTENER ID DE LA URL
 const { id } = Astro.params;
 
-// Fetch producto individual
+// 3. PRODUCTO SELECCIONADO
+let productSelected = null;
+let productsRelationShip = [];
+
 try {
   const response = await fetch(
     `https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/product_exists/${id}`
   );
-  productSelected = await response.json();
-  productSelected = productSelected[0] || null;
-} catch (err) {
-  console.error("Error loading product:", err);
-  productSelected = null;
+  const data = await response.json();
+  productSelected = data[0] || null;
+} catch (error) {
+  console.error("Error loading product:", error);
 }
 
-// Fetch productos relacionados
+// 4. PRODUCTOS RELACIONADOS
 try {
   const response = await fetch(
     "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_products/home/?nocache=12345"
   );
-  productsRelationShip = await response.json();
+  const allProducts = await response.json();
 
-  // Evitar mostrar el mismo producto como relacionado
-  productsRelationShip = productsRelationShip.filter((p: any) => p.id !== id);
-} catch (err) {
-  console.error("Error loading related products:", err);
+  productsRelationShip = allProducts.filter(
+    (p) => p.id.toString() !== id
+  );
+} catch (error) {
+  console.error("Error loading related products:", error);
 }
 ---
+
+<!-- ---
+import BaseLayout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  // Variables
+  let productsRelationShip = [];
+  let productSelected = null;
+  // Fetch producto individual
+  try {
+    const response = await fetch(
+      `https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/product_exists/${id}`
+    );
+    productSelected = await response.json();
+    productSelected = productSelected[0] || null;
+  } catch (err) {
+    console.error("Error loading product:", err);
+    productSelected = null;
+  }
+
+  // Fetch productos relacionados
+  try {
+    const response = await fetch(
+      "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_products/home/?nocache=12345"
+    );
+    productsRelationShip = await response.json();
+
+    // Evitar mostrar el mismo producto como relacionado
+    productsRelationShip = productsRelationShip.filter((p: any) => p.id !== id);
+  } catch (err) {
+    console.error("Error loading related products:", err);
+  }
+}
+
+const { id } = Astro.props;
+--- -->
 
 <BaseLayout>
   <div
