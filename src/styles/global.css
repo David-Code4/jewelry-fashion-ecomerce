@@ -107,3 +107,25 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Enlaces modernos-----footer----- */
+.footer-link {
+  @apply text-base text-gray-400 hover:text-white transition-colors duration-300;
+}
+
+/* Íconos con animación */
+.footer-icon {
+  @apply text-gray-400 hover:text-white transition duration-300 transform hover:scale-110;
+}
+
+/* Línea dorada animada premium */
+@keyframes glowLine {
+  0% { opacity: .4; transform: scaleX(0.3); }
+  50% { opacity: 1; transform: scaleX(1); }
+  100% { opacity: .4; transform: scaleX(0.3); }
+}
+
+.animate-glow {
+  animation: glowLine 4s infinite ease-in-out;
+  transform-origin: center;
+}
