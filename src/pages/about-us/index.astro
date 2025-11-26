@@ -1,0 +1,227 @@
+---
+import BaseLayout from "../../layouts/Layout.astro";
+---
+
+<BaseLayout>
+  <div class="relative flex min-h-screen w-full flex-col">
+    <main class="flex-grow">
+      <section
+        class="relative flex min-h-[30vh] items-center justify-center bg-cover bg-center py-16 text-center"
+        style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuD04fE0hjZtEMeFiVKsb7e1GQb8DBNi1Y8U4Wllw5LcwLOkyrWpTDpS8Mg0VLwObIe090_fKBCTJ5DqQj13wtjakaezs4zZ7XSGlmwldwGwgp5I8zFD1wBLqFAqN04dSAj80jNQi1myOHqoOfPrsBIw38s2NPXek_lEcDJZxI1R9NnWaQpXFdKkOCDAqFZ5f7iZTS2TEPF6NegQrgjpNH2CQ0UfIeRh55JFhN48cQDqNW5AzySmR51VjyYOmwQvKb6JSlBCC6Az8hY");'
+      >
+        <div class="px-4">
+          <h1
+            class="text-4xl font-extrabold tracking-tighter text-white sm:text-5xl md:text-6xl"
+          >
+            Quiénes Somos
+          </h1>
+          <p
+            id="description-about-us"
+            class="mx-auto mt-4 max-w-2xl text-lg text-gray-300"
+          >
+            Descubre la esencia de la elegancia y la seguridad en cada pieza.
+          </p>
+        </div>
+      </section>
+      <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+        <div class="space-y-16">
+          <section class="flex flex-col items-center gap-8 md:flex-row">
+            <div class="md:w-1/2">
+              <h2
+                class="text-3xl font-bold leading-tight tracking-tight text-primary-gradient"
+              >
+                Nuestra Historia
+              </h2>
+              <p class="mt-4 text-base leading-relaxed text-gray-300">
+                Nacimos de la pasión por la joyería de alta calidad y la
+                autoexpresión. Nuestra misión es ofrecer piezas elegantes y
+                seguras, elaboradas con una dedicación inigualable a la
+                artesanía, la innovación y el diseño atemporal.
+              </p>
+            </div>
+            <div class="h-64 w-full overflow-hidden rounded-xl md:w-1/2">
+              <img
+                alt="Close-up of a premium, elegant piercing on an ear, with dark and moody lighting."
+                class="h-full w-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD04fE0hjZtEMeFiVKsb7e1GQb8DBNi1Y8U4Wllw5LcwLOkyrWpTDpS8Mg0VLwObIe090_fKBCTJ5DqQj13wtjakaezs4zZ7XSGlmwldwGwgp5I8zFD1wBLqFAqN04dSAj80jNQi1myOHqoOfPrsBIw38s2NPXek_lEcDJZxI1R9NnWaQpXFdKkOCDAqFZ5f7iZTS2TEPF6NegQrgjpNH2CQ0UfIeRh55JFhN48cQDqNW5AzySmR51VjyYOmwQvKb6JSlBCC6Az8hY"
+              />
+            </div>
+          </section>
+          <section class="flex flex-col items-center gap-8 md:flex-row-reverse">
+            <div class="md:w-1/2">
+              <h2
+                class="text-3xl font-bold leading-tight tracking-tight text-primary-gradient"
+              >
+                Nuestro Proceso
+              </h2>
+              <p class="mt-4 text-base leading-relaxed text-gray-300">
+                Desde el concepto hasta la pieza final, cada joya es diseñada y
+                fabricada meticulosamente por nuestros artesanos expertos. Este
+                riguroso proceso garantiza un acabado impecable y un diseño
+                único en cada creación.
+              </p>
+            </div>
+            <div class="h-64 w-full overflow-hidden rounded-xl md:w-1/2">
+              <img
+                alt="Jeweler's hands carefully crafting a piece of piercing jewelry with precision tools."
+                class="h-full w-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHZfFX_6Z_oP-Bj5s62iNcawUivjPBFXAjsdpgf_KRtdQ4OCUG-siywJEZxHZ3BIhCxPWVaMZMZe6_BRL6s-LdZ5sqflClQ36MyVm2f5oIIzKI7EFTOCivPczYiEh3W5TAri6w_qsiZhEgt66m2CEd1L7WqUVOdphFruOdulzPQXWrbbvCm0jswtyF5gIbkYGxqMU625OAylFEOqYB30ydC_5tuGW18yEe6fbonJ6qZ1ghnPT7QLQ4z0rF0RumXALhjRJBw-KwkQg"
+              />
+            </div>
+          </section>
+          <section class="rounded-xl bg-background-dark p-8 text-center">
+            <h2
+              class="text-3xl font-bold leading-tight tracking-tight text-primary-gradient"
+            >
+              Materiales Premium
+            </h2>
+            <p
+              class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-300"
+            >
+              Utilizamos exclusivamente titanio de grado implante y oro sólido
+              de 14K/18K. Creemos en la biocompatibilidad y la seguridad,
+              garantizando que cada joya no solo sea hermosa, sino también
+              completamente segura para tu cuerpo.
+            </p>
+            <div
+              class="mt-8 inline-flex items-center gap-4 rounded-full bg-accent-dark px-6 py-3"
+            >
+              <span class="material-symbols-outlined text-3xl text-primary"
+                >health_and_safety</span
+              >
+              <div>
+                <h3 class="font-bold text-white">
+                  Biocompatibilidad Garantizada
+                </h3>
+                <p class="text-sm text-gray-400">
+                  Materiales hipoalergénicos para tu tranquilidad.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section class="text-center">
+            <h2
+              class="text-3xl font-bold leading-tight tracking-tight text-primary-gradient"
+            >
+              Por Qué Elegirnos
+            </h2>
+            <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
+              <div class="flex flex-col items-center">
+                <span class="material-symbols-outlined text-4xl text-primary"
+                  >diamond</span
+                >
+                <h4 class="mt-4 text-lg font-bold text-white">
+                  Calidad Artesanal
+                </h4>
+                <p class="mt-1 text-sm text-gray-400">
+                  Cada pieza es una obra de arte, pulida a la perfección.
+                </p>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="material-symbols-outlined text-4xl text-primary"
+                  >verified_user</span
+                >
+                <h4 class="mt-4 text-lg font-bold text-white">
+                  Materiales Seguros
+                </h4>
+                <p class="mt-1 text-sm text-gray-400">
+                  Solo usamos titanio grado implante y oro sólido.
+                </p>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="material-symbols-outlined text-4xl text-primary"
+                  >auto_awesome</span
+                >
+                <h4 class="mt-4 text-lg font-bold text-white">
+                  Diseños Únicos
+                </h4>
+                <p class="mt-1 text-sm text-gray-400">
+                  Expresa tu estilo con joyería exclusiva y moderna.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2
+              class="text-center text-3xl font-bold leading-tight tracking-tight text-primary-gradient"
+            >
+              Testimonios
+            </h2>
+            <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div
+                class="rounded-xl border border-white/10 bg-background-dark p-6"
+              >
+                <div class="flex items-center pb-2 text-primary">
+                  <span class="material-symbols-outlined text-lg">star</span
+                  ><span class="material-symbols-outlined text-lg">star</span
+                  ><span class="material-symbols-outlined text-lg">star</span
+                  ><span class="material-symbols-outlined text-lg">star</span
+                  ><span class="material-symbols-outlined text-lg">star</span>
+                </div>
+                <blockquote class="italic text-gray-300">
+                  "La calidad es increíble y el diseño es justo lo que buscaba.
+                  ¡Se ha convertido en mi pieza favorita!"
+                </blockquote>
+                <cite
+                  class="mt-4 block text-right font-bold not-italic text-white"
+                  >- Ana G.</cite
+                >
+              </div>
+              <div
+                class="rounded-xl border border-white/10 bg-background-dark p-6"
+              >
+                <div class="flex items-center pb-2 text-primary">
+                  <span class="material-symbols-outlined text-lg">star</span
+                  ><span class="material-symbols-outlined text-lg">star</span
+                  ><span class="material-symbols-outlined text-lg">star</span
+                  ><span class="material-symbols-outlined text-lg">star</span
+                  ><span class="material-symbols-outlined text-lg">star</span>
+                </div>
+                <blockquote class="italic text-gray-300">
+                  "Súper seguro para mi piel sensible. Finalmente encontré
+                  joyería que puedo usar sin preocupaciones."
+                </blockquote>
+                <cite
+                  class="mt-4 block text-right font-bold not-italic text-white"
+                  >- Carlos M.</cite
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+</BaseLayout>
+
+<script type="module">
+  const urlApi = "https://jewelryfashionoficial.com/wp-json/wp/v2/pages";
+
+  function getPageAboutUs() {
+    fetch(urlApi)
+      .then((response) => response.json())
+      .then((data) => {
+        const pageAboutUs = data.find((page) => page.slug === "quienes-somos");
+        if (pageAboutUs) {
+          document.getElementById("title-about-us").innerHTML =
+            pageAboutUs.title.rendered;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching About Us page:", error);
+      });
+  }
+
+  getPageAboutUs();
+</script>
+
+<style>
+  body {
+    min-height: max(884px, 100dvh);
+  }
+</style>
+<style>
+  body {
+    min-height: max(884px, 100dvh);
+  }
+</style>

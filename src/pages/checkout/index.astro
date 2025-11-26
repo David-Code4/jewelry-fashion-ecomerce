@@ -1,0 +1,397 @@
+---
+import BaseLayout from "../../layouts/Layout.astro";
+---
+
+<BaseLayout>
+  <main class="flex-grow px-4 pb-12">
+    <div class="pt-10 pb-16 text-text-light">
+      <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <!-- LEFT: Checkout Items -->
+          <section class="lg:col-span-2 space-y-6">
+            <h2 class="text-3xl font-bold tracking-tight">Checkout</h2>
+
+            <div
+              class="bg-white/90 rounded-xl shadow-md backdrop-blur-sm p-6 border border-gray-100"
+            >
+              <div id="cart-items" class="space-y-4 text-black">
+                <p class="text-gray-600 animate-pulse">Cargando carrito...</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- RIGHT: Summary -->
+          <aside class="lg:col-span-1 space-y-4">
+            <h3 class="text-xl font-semibold">Resumen</h3>
+
+            <div
+              class="bg-white rounded-xl shadow-md p-6 border border-gray-100 space-y-4"
+            >
+              <div
+                class="flex justify-between text-lg font-medium text-gray-700"
+              >
+                <span>Total:</span>
+                <strong id="cart-total" class="text-gray-900">$0</strong>
+              </div>
+
+              <button
+                id="checkout-clear"
+                class="w-full bg-red-500 hover:bg-red-600 transition-all text-white font-semibold py-2.5 rounded-lg shadow-sm"
+              >
+                Vaciar carrito
+              </button>
+
+              <button
+                id="checkout-pay"
+                class="w-full bg-gray-900 hover:bg-black transition-all text-white font-semibold py-2.5 rounded-lg shadow-md"
+              >
+                Pagar
+              </button>
+
+              <p id="checkout-pay-note" class="text-sm text-gray-500 hidden">
+                El carrito está vacío. Añade productos antes de pagar.
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- FORM -->
+        <div
+          id="checkout-form-container"
+          class="hidden mt-12 bg-white rounded-xl shadow-md border border-gray-100 p-8"
+        >
+          <h3 class="text-2xl font-semibold text-gray-900 mb-6">
+            Datos del comprador
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <label class="sm:col-span-2">
+              <span class="text-gray-700 text-sm font-medium"
+                >Nombre completo</span
+              >
+              <input
+                id="buyer-name"
+                type="text"
+                class="mt-2 w-full rounded-lg border border-gray-300 bg-gray-50 h-12 px-4 text-gray-900 focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition"
+                placeholder="Ej: Juan Pérez"
+                required
+              />
+            </label>
+
+            <label>
+              <span class="text-gray-700 text-sm font-medium">Email</span>
+              <input
+                id="buyer-email"
+                type="email"
+                class="mt-2 w-full rounded-lg border border-gray-300 bg-gray-50 h-12 px-4 text-gray-900 focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition"
+                placeholder="correo@mail.com"
+                required
+              />
+            </label>
+
+            <label>
+              <span class="text-gray-700 text-sm font-medium">Teléfono</span>
+              <input
+                id="buyer-phone"
+                type="tel"
+                class="mt-2 w-full rounded-lg border border-gray-300 bg-gray-50 h-12 px-4 text-gray-900 focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition"
+                placeholder="3001234567"
+                required
+              />
+            </label>
+          </div>
+
+          <div class="pt-6">
+            <button
+              id="submit-pay"
+              class="w-full rounded-lg bg-black hover:bg-gray-900 text-white font-bold py-4 px-6 shadow-lg transition"
+            >
+              Pagar ahora
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- MODAL WOMPI MEJORADO -->
+    <div
+      id="modalPago"
+      style="
+        display:none;
+        position:fixed;
+        inset:0;
+        background:linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85));
+        backdrop-filter: blur(4px);
+        z-index:9999;
+      "
+    >
+      <div
+        style="
+    position:relative;
+    width:90%;
+    max-width:850px;
+    height:80vh;
+    margin:5vh auto;
+    background:#ffffff;
+    border-radius:22px;
+    box-shadow:0 25px 60px rgba(0,0,0,0.4);
+    display:flex;
+    flex-direction:column;
+    padding:40px 35px;
+  "
+      >
+        <!-- Botón cerrar -->
+        <button
+          id="cerrarModalBtn"
+          style="
+      position:absolute;
+      top:18px;
+      right:22px;
+      font-size:22px;
+      background:#f2f2f2;
+      border:none;
+      border-radius:50%;
+      width:40px;
+      height:40px;
+      cursor:pointer;
+      transition:0.3s;
+    "
+          onmouseover="this.style.background='#e74c3c';this.style.color='white'"
+          onmouseout="this.style.background='#f2f2f2';this.style.color='black'"
+        >
+          ✕
+        </button>
+
+        <!-- Cabecera -->
+        <div style="text-align:center; margin-bottom:25px;">
+          <h2 style="margin:0; font-size:28px; color:#222;">
+            Finaliza tu pago de forma segura
+          </h2>
+          <p style="margin-top:10px; font-size:16px; color:#555;">
+            Haz clic en el botón de abajo para continuar con el pago en la
+            plataforma segura de <strong>Wompi</strong>.
+          </p>
+        </div>
+
+        <!-- Instrucción visual -->
+        <div
+          style="
+      background:#f8f9fa;
+      border:2px dashed #6c63ff;
+      padding:18px;
+      border-radius:14px;
+      text-align:center;
+      margin-bottom:30px;
+      font-size:16px;
+      color:#333;
+    "
+        >
+          👉 Presiona el botón morado para realizar tu pago de forma segura
+        </div>
+
+        <!-- Contenedor Wompi -->
+        <div
+          id="wompi-container"
+          style="
+      flex:1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    "
+        >
+          <!-- AQUÍ SE INYECTA EL BOTÓN DE WOMPI -->
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      window.addEventListener("DOMContentLoaded", () => {
+        const elItems = document.getElementById("cart-items");
+        const elTotal = document.getElementById("cart-total");
+        const btnClear = document.getElementById("checkout-clear");
+        const btnShowForm = document.getElementById("checkout-pay");
+        const btnSubmit = document.getElementById("submit-pay");
+        const payNote = document.getElementById("checkout-pay-note");
+        const formContainer = document.getElementById(
+          "checkout-form-container"
+        );
+
+        const money = (v) => "$" + Number(v || 0).toFixed(2);
+
+        function renderCart() {
+          if (!window.cartApi) {
+            elItems.innerHTML =
+              '<p class="text-red-500">Carrito no disponible</p>';
+            return;
+          }
+
+          const cart = window.cartApi.getCart() || [];
+          const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+
+          elTotal.textContent = money(total);
+          btnSubmit.textContent = `Pagar Ahora ${money(total)}`;
+          btnShowForm.textContent = `Pagar ${money(total)}`;
+
+          if (!cart.length) {
+            elItems.innerHTML =
+              '<p class="text-gray-600">Tu carrito está vacío</p>';
+            btnShowForm.disabled = true;
+            btnSubmit.disabled = true;
+            return;
+          }
+
+          btnShowForm.disabled = false;
+          btnSubmit.disabled = false;
+
+          elItems.innerHTML = "";
+          cart.forEach((item) => {
+            const div = document.createElement("div");
+            div.className = "flex items-center gap-4";
+
+            div.innerHTML = `
+              <img src="${item.image || "/assets/placeholder.png"}" class="w-16 h-16 rounded" />
+              <div class="flex-1">
+                <strong>${item.name}</strong>
+                <div class="text-sm">
+                  ${money(item.price)} x
+                  <input class="qty-input border px-1 w-14" data-id="${item.id}" value="${item.quantity}" />
+                </div>
+              </div>
+              <button data-id="${item.id}" class="remove-btn text-red-600">Eliminar</button>
+            `;
+
+            elItems.appendChild(div);
+          });
+
+          bindItemEvents();
+        }
+
+        function bindItemEvents() {
+          document.querySelectorAll(".remove-btn").forEach((btn) => {
+            btn.onclick = () => window.cartApi.removeItem(btn.dataset.id);
+          });
+
+          document.querySelectorAll(".qty-input").forEach((input) => {
+            input.onchange = () => {
+              const qty = Number(input.value);
+              if (qty <= 0) window.cartApi.removeItem(input.dataset.id);
+              else window.cartApi.updateQty(input.dataset.id, qty);
+            };
+          });
+        }
+
+        btnClear.onclick = () => {
+          window.cartApi.clearCart();
+          formContainer.classList.add("hidden");
+          renderCart();
+        };
+
+        btnShowForm.onclick = () => {
+          if (!window.cartApi.getCount()) {
+            payNote.classList.remove("hidden");
+            return;
+          }
+          payNote.classList.add("hidden");
+          formContainer.classList.remove("hidden");
+          btnShowForm.disabled = true;
+        };
+
+        function showModalWompi(
+          amount,
+          reference,
+          signature,
+          email,
+          name,
+          phone
+        ) {
+          const modal = document.getElementById("modalPago");
+          const container = document.getElementById("wompi-container");
+
+          modal.style.display = "flex";
+          container.innerHTML = "";
+
+          const script = document.createElement("script");
+          script.src = "https://checkout.wompi.co/widget.js";
+
+          script.setAttribute("data-render", "button");
+          script.setAttribute(
+            "data-public-key",
+            "pub_test_qmiRiyHacyTM26FBxEn1Xt4pLu4B2c1S"
+          );
+          script.setAttribute("data-currency", "COP");
+          script.setAttribute("data-amount-in-cents", amount);
+          script.setAttribute("data-reference", reference);
+
+          // ✅ FIRMA OBLIGATORIA
+          script.setAttribute("data-signature:integrity", signature);
+
+          // ✅ Datos del cliente
+          // script.setAttribute(
+          //   "data-customer-data",
+          //   JSON.stringify({
+          //     email: email,
+          //     full_name: name,
+          //     phone_number: phone,
+          //   })
+          // );
+
+          script.setAttribute(
+            "data-redirect-url",
+            "https://jewelryfashionoficial.com/thanks"
+          );
+
+          container.appendChild(script);
+        }
+
+        function initialPayment() {
+          debugger;
+          const name = document.getElementById("buyer-name").value;
+          const email = document.getElementById("buyer-email").value;
+          const phone = document.getElementById("buyer-phone").value;
+          if (!name || !email || !phone) {
+            alert("Completa todos los datos");
+            return;
+          }
+          const cart = window.cartApi.getCart();
+          const products = cart.map((item) => ({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+          }));
+
+          fetch(
+            "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/create-payment",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name, email, phone, products }),
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              if (!data.success) {
+                alert("Error creando la orden");
+                return;
+              }
+              showModalWompi(
+                data.amount,
+                data.reference,
+                data.signature,
+                email,
+                name,
+                phone
+              );
+            });
+        }
+
+        btnSubmit.onclick = () => {
+          if (!window.cartApi.getCount()) return alert("Carrito vacío");
+          initialPayment();
+        };
+
+        window.addEventListener("cartchange", renderCart);
+        renderCart();
+      });
+    </script>
+  </main>
+</BaseLayout>

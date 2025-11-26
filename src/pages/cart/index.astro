@@ -1,0 +1,188 @@
+---
+import BaseLayout from "../../layouts/Layout.astro";
+---
+
+<BaseLayout>
+  <div class="container mx-auto px-6 md:px-20 xl:px-40 py-10">
+
+    <!-- Título -->
+    <h1 
+      class="text-white text-3xl font-extrabold mb-8 tracking-wide flex items-center gap-3"
+    >
+      Carrito
+      <span class="block w-16 h-[3px] bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-full animate-pulse"></span>
+    </h1>
+
+    <!-- Carrito vacío -->
+    <div 
+      id="cart-empty" 
+      class="text-gray-400 text-center py-10 text-lg hidden"
+    >
+      Tu carrito está vacío.
+    </div>
+
+    <!-- Lista de productos -->
+    <div 
+      id="cart-list" 
+      class="flex flex-col gap-6 py-4"
+    ></div>
+
+    <!-- CONTENEDOR RESUMEN FINAL -->
+    <div
+      class="sticky bottom-0 left-0 right-0 mt-8 bg-black/70 backdrop-blur-xl 
+             p-6 rounded-t-xl border-t border-white/10 shadow-[0_-10px_25px_rgba(0,0,0,0.4)]"
+    >
+      <div class="space-y-4">
+
+        <!-- Subtotal -->
+        <div class="flex justify-between items-center">
+          <p class="text-white/70 text-sm">Subtotal</p>
+          <p id="cart-subtotal" class="text-white font-semibold"></p>
+        </div>
+
+        <!-- Envío -->
+        <div class="flex justify-between items-center">
+          <p class="text-white/70 text-sm">Envío</p>
+          <p class="text-white/80 text-sm">Calculado en el siguiente paso</p>
+        </div>
+
+        <!-- Total -->
+        <div class="flex justify-between items-center pt-3 border-t border-white/10">
+          <p class="text-white text-lg font-bold">Total</p>
+          <p id="cart-total" class="text-white text-lg font-bold"></p>
+        </div>
+
+      </div>
+
+      <!-- BOTÓN FINAL -->
+      <a href="/checkout" class="block mt-5">
+        <button
+          class="w-full bg-[#A40000] hover:bg-[#C00000] transition-all 
+                 text-white font-bold text-base py-4 rounded-lg
+                 shadow-[0_8px_20px_rgba(164,0,0,0.4)] hover:shadow-[0_8px_25px_rgba(192,0,0,0.55)]
+                 active:scale-[0.98]"
+        >
+          Continuar al Pago
+        </button>
+      </a>
+    </div>
+
+  </div>
+</BaseLayout>
+
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const emptyEl = document.getElementById("cart-empty");
+    const listEl = document.getElementById("cart-list");
+    const totalEl = document.getElementById("cart-total");
+    const subtotalEl = document.getElementById("cart-subtotal");
+
+    const formatPrice = (value: number) => {
+      const number = Number(value) || 0;
+      return number.toLocaleString("es-CO", {
+        style: "currency",
+        currency: "COP",
+        minimumFractionDigits: 0,
+      });
+    };
+
+    function render() {
+      const cart = (window.cartApi && window.cartApi.getCart()) || [];
+
+      if (!cart.length) {
+        emptyEl.style.display = "block";
+        listEl.classList.add("hidden");
+        totalEl.textContent = formatPrice(0);
+        subtotalEl.textContent = formatPrice(0);
+        return;
+      }
+
+      emptyEl.style.display = "none";
+      listEl.classList.remove("hidden");
+      listEl.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach((item) => {
+        total += item.price * item.quantity;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "flex flex-col gap-4 border-b border-white/10 pb-4";
+
+        wrapper.innerHTML = `
+        <div class="flex w-full items-center gap-4">
+          <div class="bg-cover bg-center rounded-lg size-24 shrink-0"
+               style="background-image:url('${item.image || ""}')"></div>
+
+          <div class="flex flex-1 flex-col">
+            <p class="text-white text-base font-medium">${item.name}</p>
+            <p class="text-white/60 text-sm">${item.descripcion_material || ""}</p>
+            <p class="text-white font-semibold mt-1">
+              ${formatPrice(item.price)}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <button data-remove="${item.id}"
+            class="remove-btn cursor-pointer hover:bg-red-950 rounded-sm p-2 flex items-center gap-2 text-white/60 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+            <span class="text-sm font-medium">Eliminar</span>
+          </button>
+
+          <div class="flex items-center gap-4 text-white">
+            <button data-minus="${item.id}"
+              class="qty-btn cursor-pointer flex h-8 w-8 items-center justify-center rounded-full border border-white/30 hover:bg-white/10">-</button>
+            <span class="w-5 text-center">${item.quantity}</span>
+            <button data-plus="${item.id}"
+              class="qty-btn cursor-pointer flex h-8 w-8 items-center justify-center rounded-full border border-white/30 hover:bg-white/10">+</button>
+          </div>
+        </div>
+      `;
+
+        listEl.appendChild(wrapper);
+      });
+
+      totalEl.textContent = formatPrice(total);
+      subtotalEl.textContent = formatPrice(total);
+
+      bindControls();
+    }
+
+    function bindControls() {
+      // Eliminar producto
+      document.querySelectorAll("[data-remove]").forEach((btn) => {
+        btn.onclick = () => {
+          window.cartApi.removeItem(btn.dataset.remove);
+        };
+      });
+
+      // Botón +
+      document.querySelectorAll("[data-plus]").forEach((btn) => {
+        btn.onclick = () => {
+          const id = btn.dataset.plus;
+          const item = window.cartApi.getCart().find((p) => p.id == id);
+          window.cartApi.updateQty(id, item.quantity + 1);
+        };
+      });
+
+      // Botón -
+      document.querySelectorAll("[data-minus]").forEach((btn) => {
+        btn.onclick = () => {
+          const id = btn.dataset.minus;
+          const item = window.cartApi.getCart().find((p) => p.id == id);
+
+          if (item.quantity <= 1) {
+            window.cartApi.removeItem(id);
+          } else {
+            window.cartApi.updateQty(id, item.quantity - 1);
+          }
+        };
+      });
+    }
+
+    window.addEventListener("cartchange", render);
+    render();
+  });
+</script>

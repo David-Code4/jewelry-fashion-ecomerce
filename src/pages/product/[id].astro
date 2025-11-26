@@ -1,0 +1,241 @@
+---
+import BaseLayout from "../../layouts/Layout.astro";
+
+// Variables
+let productsRelationShip = [];
+let productSelected = null;
+
+const { id } = Astro.params;
+
+// Fetch producto individual
+try {
+  const response = await fetch(
+    `https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/product_exists/${id}`
+  );
+  productSelected = await response.json();
+  productSelected = productSelected[0] || null;
+} catch (err) {
+  console.error("Error loading product:", err);
+  productSelected = null;
+}
+
+// Fetch productos relacionados
+try {
+  const response = await fetch(
+    "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_products/home/?nocache=12345"
+  );
+  productsRelationShip = await response.json();
+
+  // Evitar mostrar el mismo producto como relacionado
+  productsRelationShip = productsRelationShip.filter((p: any) => p.id !== id);
+} catch (err) {
+  console.error("Error loading related products:", err);
+}
+---
+
+<BaseLayout>
+  <div
+    class="relative flex min-h-screen w-full flex-col bg-[#000000] overflow-x-hidden"
+  >
+    <main class="flex-grow container mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 md:gap-12">
+        <!-- 🖼 Galería dinámica -->
+        <div class="flex flex-col gap-4">
+          <!-- Imagen principal -->
+          <div
+            class="relative w-full aspect-square bg-center bg-no-repeat bg-cover rounded-xl bg-bg-accent-darker"
+            style={`background-image: url('${productSelected?.image_url || ""}')`}
+          >
+            <button
+              class="absolute top-3 right-3 bg-black/50 p-2 rounded-full text-white hover:bg-black/75 transition-colors"
+            >
+              <span class="material-symbols-outlined">zoom_in</span>
+            </button>
+          </div>
+
+          <!-- Miniaturas dinámicas (si la API las trae) -->
+          {
+            productSelected?.gallery?.length > 0 ? (
+              <div class="grid grid-cols-4 gap-3">
+                {productSelected.gallery.map((img: string) => (
+                  <div
+                    class="w-full aspect-square bg-center bg-no-repeat bg-cover rounded-lg bg-bg-accent-darker cursor-pointer hover:opacity-80 transition"
+                    style={`background-image: url('${img}')`}
+                  />
+                ))}
+              </div>
+            ) : null
+          }
+        </div>
+
+        <!-- 📝 Información del producto -->
+        <div class="flex flex-col gap-6 mt-8 md:mt-0">
+          <div class="flex flex-col gap-2 border-b border-bg-accent-dark pb-6">
+            <p class="text-gray-400 text-sm uppercase tracking-wider">
+              {productSelected?.material || "Material desconocido"}
+            </p>
+
+            <h1
+              class="text-white text-3xl md:text-4xl font-bold tracking-tight"
+            >
+              {productSelected?.product_name || "Producto no encontrado"}
+            </h1>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <div class="text-gray-300 text-sm space-y-3 leading-relaxed">
+              <p>
+                {
+                  productSelected?.description ||
+                    "No hay descripción disponible para este producto."
+                }
+              </p>
+            </div>
+
+            <!-- 📏 Medidas -->
+            <div>
+              <h3 class="text-white font-semibold mb-2">Medidas:</h3>
+
+              <ul class="list-disc list-inside text-gray-400 text-sm space-y-1">
+                {
+                  productSelected?.measures?.length ? (
+                    productSelected.measures.map((m: any) => <li>{m}</li>)
+                  ) : (
+                    <>
+                      <li>
+                        Diámetro interno:{" "}
+                        {productSelected?.measure_diameter || "—"}
+                      </li>
+                      <li>Grosor: {productSelected?.gauge || "—"}</li>
+                      <li>Material: {productSelected?.material || "—"}</li>
+                    </>
+                  )
+                }
+              </ul>
+            </div>
+          </div>
+
+          <!-- 💰 Precios -->
+          <div class="flex items-baseline gap-3">
+            <p class="text-white text-3xl font-bold">
+              ${productSelected?.price ?? "—"}
+            </p>
+
+            {
+              productSelected?.compare_price ? (
+                <p class="text-gray-500 text-lg font-normal line-through">
+                  ${productSelected.compare_price}
+                </p>
+              ) : null
+            }
+
+            {
+              productSelected?.discount ? (
+                <span class="bg-primary text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                  {productSelected.discount}% OFF
+                </span>
+              ) : null
+            }
+          </div>
+
+          <!-- 🛒 Botones -->
+          <div class="flex flex-col gap-3 mt-2">
+            <button
+              id="add-to-cart-btn"
+              data-product={encodeURIComponent(
+                JSON.stringify(productSelected || {})
+              )}
+              class="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary hover:bg-primary-darker px-4 py-3 text-white text-base font-bold transition-colors"
+            >
+              <span class="material-symbols-outlined">add_shopping_cart</span>
+              Agregar al carrito
+            </button>
+
+            <button
+              class="flex w-full items-center justify-center gap-x-2 rounded-lg bg-bg-accent-dark hover:bg-bg-accent-darker border border-bg-accent-darker hover:border-bg-accent-dark px-4 py-3 text-white text-base font-bold transition-colors"
+            >
+              <span class="material-symbols-outlined">bolt</span>
+              Compra rápida
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-bg-accent-dark pt-8 mt-12">
+        <h2 class="text-white text-xl font-bold mb-4">
+          Productos Relacionados
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {
+            productsRelationShip.map((product: any) => (
+              <div class="flex flex-col gap-3">
+                <div
+                  class="relative w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl bg-bg-accent-darker"
+                  style={`background-image: url("${product.image_url}");`}
+                />
+                <div class="flex flex-col gap-1">
+                  <p class="text-white text-sm font-semibold leading-tight">
+                    {product.name}
+                  </p>
+                  <p class="text-gray-400 text-xs">{product.material}</p>
+                  <p class="text-white text-sm font-bold mt-1">
+                    ${product.price}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .material-symbols-outlined {
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
+  }
+</style>
+
+<script type="module">
+  window.addEventListener("DOMContentLoaded", () => {
+    try {
+      const btn = document.getElementById("add-to-cart-btn");
+      if (!btn) return;
+      const raw = btn.getAttribute("data-product") || "";
+      let product = {};
+      try {
+        product = JSON.parse(decodeURIComponent(raw));
+      } catch (e) {
+        product = {};
+      }
+      const payload = {
+        id: String(
+          product?.id ?? product?.product_id ?? product?.sku ?? "unknown"
+        ),
+        name: String(product.product_name ?? product.name ?? ""),
+        price: Number(product.price ?? 0),
+        image: product.image_url ?? product.image ?? "",
+        quantity: 1,
+      };
+      btn.addEventListener("click", function () {
+        if (window.cartApi && typeof window.cartApi.addItem === "function") {
+          window.cartApi.addItem(payload);
+          // visual feedback
+          const original = btn.innerHTML;
+          btn.textContent = "Añadido";
+          setTimeout(() => {
+            btn.innerHTML = original;
+          }, 900);
+        } else {
+          console.warn("cartApi not available");
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  });
+</script>

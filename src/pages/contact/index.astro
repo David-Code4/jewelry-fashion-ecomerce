@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/Layout.astro";
+---
+
+<BaseLayout>
+  <main class="flex-1 main-bg-gradient">
+    <div class="container mx-auto px-4 py-16 md:py-24">
+      <div class="max-w-xl mx-auto">
+        <div class="text-center mb-12">
+          <h1
+            class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-4"
+          >
+            Ponte en Contacto
+          </h1>
+          <p class="text-base text-gray-400 max-w-md mx-auto">
+            ¿Tienes alguna pregunta o comentario? Completa el formulario y nos
+            pondremos en contacto contigo.
+          </p>
+        </div>
+        <form action="#" class="space-y-8" method="POST" >
+          <div>
+            <label class="sr-only px-2" for="name">Nombre</label>
+            <input 
+              class="bg-white form-input block w-full border-b text-white placeholder-gray-500 transition duration-150 ease-in-out focus:outline-none sm:text-sm"
+              id="name"
+              name="name"
+              placeholder="Nombre"
+              type="text"
+            />
+          </div>
+          <div >
+            <label class="sr-only px-2" for="email">Correo Electrónico</label>
+            <input
+              class="form-input block w-full border-b text-white placeholder-gray-500 transition duration-150 ease-in-out focus:outline-none sm:text-sm"
+              id="email"
+              name="email"
+              placeholder="Correo Electrónico"
+              type="email"
+            />
+          </div>
+          <div>
+            <label class="sr-only px-2" for="subject">Asunto</label>
+            <input
+              class="form-input block w-full border-b text-white placeholder-gray-500 transition duration-150 ease-in-out focus:outline-none sm:text-sm"
+              id="subject"
+              name="subject"
+              placeholder="Asunto"
+              type="text"
+            />
+          </div>
+          <div>
+            <label class="sr-only px-2" for="message">Mensaje</label>
+            <textarea
+              class="form-input block w-full border-b text-white placeholder-gray-500 transition duration-150 ease-in-out focus:outline-none sm:text-sm"
+              id="message"
+              name="message"
+              placeholder="Escribe tu mensaje aquí..."
+              rows="5"></textarea>
+          </div>
+          <div class="pt-4">
+            <button
+              class="w-full flex justify-center py-3 px-4 border hover:bg-red-500 rounded-md shadow-sm text-base font-semibold text-white bg-brand-red hover:bg-brand-red-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-dark focus:ring-brand-red transition-colors duration-300"
+              type="submit"
+            >
+              Enviar Mensaje
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+
+<script></script>
