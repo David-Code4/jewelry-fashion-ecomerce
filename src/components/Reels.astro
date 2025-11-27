@@ -1,0 +1,129 @@
+---
+import "swiper/css";
+import "swiper/css/navigation";
+
+const reels = [
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/DPpEd_vkdSq/embed",
+  },
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/Cv2YqJHhJwK/embed",
+  },
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/Cv3JKas89S/embed",
+  },
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/DPpEd_vkdSq/embed",
+  },
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/Cv2YqJHhJwK/embed",
+  },
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/Cv3JKas89S/embed",
+  },
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/DPpEd_vkdSq/embed",
+  },
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/Cv2YqJHhJwK/embed",
+  },
+  {
+    user: "@jewelryfashionoficial",
+    followers: "11,9k followers",
+    embedUrl: "https://www.instagram.com/reel/Cv3JKas89S/embed",
+  },
+];
+---
+
+<section class="reels-container">
+  <div class="swiper reels-swiper">
+    <div class="swiper-wrapper">
+      {
+        reels.map((reel) => (
+          <div class="swiper-slide">
+            <div class="reel-card">
+              <div class="reel-header">
+                <strong>{reel.user}</strong>
+                <span>{reel.followers}</span>
+              </div>
+              <div class="reel-video">
+                <iframe
+                  src={reel.embedUrl}
+                  width="100%"
+                  height="500"
+                  frameborder="0"
+                  scrolling="no"
+                  allowtransparency="true"
+                  allow="encrypted-media"
+                />
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation } from "swiper/modules";
+
+  new Swiper(".reels-swiper", {
+    modules: [Navigation],
+    slidesPerView: 3,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      320: { slidesPerView: 1.2 },
+      768: { slidesPerView: 2.2 },
+      1024: { slidesPerView: 3 },
+    },
+  });
+</script>
+<style>
+  .reels-container {
+    width: 100%;
+    padding: 2rem 0;
+  }
+
+  .reel-card {
+    background: #111;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .reel-header {
+    padding: 1rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .reel-video iframe {
+    border: none;
+  }
+</style>

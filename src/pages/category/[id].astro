@@ -1,98 +1,92 @@
 ---
 import BaseLayout from "../../layouts/Layout.astro";
 
+export async function getStaticPaths() {
+  try {
+    const res = await fetch(
+      "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_categories/?nocache=53244"
+    );
+
+    const categories = await res.json();
+
+    return categories.map((cat: any) => ({
+      params: { id: String(cat.id) },
+    }));
+  } catch (error) {
+    console.error("Error cargando categorías:", error);
+    return [];
+  }
+}
+
 const { id } = Astro.params;
 
+// Cargar productos por categoría
 let products = [];
-let category = [];
-
 
 try {
   const response = await fetch(
     `https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_products_by_category/${id}`
   );
-
   products = await response.json();
 } catch (error) {
   console.error("Error al cargar productos por categoría:", error);
 }
 
-    
+// Cargar categorías para menú
+let category = [];
+
 try {
   const response = await fetch(
     "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_categories/?nocache=53244"
   );
   category = await response.json();
-
-  // Evitar mostrar el mismo producto como relacionado
-  
 } catch (err) {
-  console.error("Error loading related products:", err);
+  console.error("Error loading categories:", err);
 }
 
-
+let nameCategory = category.find((cat: any) => Number(cat.id) === Number(id));
 ---
+
 <BaseLayout>
-<nav class="bg-gray-900 pb-7 p-9 text-white">
-    <!-- Menú -->
-    <!-- CONTENEDOR COMPLETO -->
-    <div class="relative md:static w-full">
-      <!-- Flecha izquierda -->
-      <button
-        id="cat-left"
-        class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800/80 text-white p-2 rounded-full shadow-md
-           md:hidden z-20"
-      >
-        <span class="material-symbols-outlined">chevron_left</span>
-      </button>
-
-      <!-- CARRUSEL -->
+  <div
+    class="relative w-full h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style="background-image: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop');"
+    >
+      <div class="absolute inset-0 bg-black/50"></div>
       <div
-        id="carousel-container"
-        class="flex md:hidden justify-center items-center w-full overflow-hidden py-2"
+        class="relative w-full h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden"
       >
-        <div
-          id="carousel-item"
-          class="text-white text-sm font-medium tracking-widest"
+        <h1
+          class="relative z-10 text-4xl md:text-6xl font-bold text-white text-center tracking-tight drop-shadow-2xl px-4"
         >
-          <!-- Aquí se cargará dinámicamente cada categoría -->
-        </div>
+          {nameCategory.name}
+        </h1>
       </div>
-
-      <!-- Flecha derecha -->
-      <button
-        id="cat-right"
-        class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800/80 text-white p-2 rounded-full shadow-md
-           md:hidden z-20"
+    </div>
+  </div>
+  <nav class="relative bg-gray-900 pb-7 p-9 text-white">
+    <div class="relative md:static w-full">
+      <div
+        id="menu-desktop"
+        class="hidden md:flex md:flex-row md:space-x-12 md:justify-center md:items-center
+        md:text-xs md:font-medium md:tracking-widest relative"
       >
-        <span class="material-symbols-outlined">chevron_right</span>
-      </button>
-
-      <!-- Menú desktop normal -->
-      <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-<div 
-  id="menu-desktop"
-  class="hidden md:flex md:flex-row md:space-x-12 md:justify-center md:items-center 
-  md:text-xs md:font-medium md:tracking-widest relative"
->
-
-  <!-- TEMPLATE DE CATEGORIA -->
- 
-  {
-    category.map((item: any) => (
-
-      <div x-data="{ open:false }" class="relative">
-        <a  href={`/category/${item.id}`}
-          class="hover:text-primary transition-colors cursor-pointer">{item.name}
-        </a>
+        {
+          category.map((item: any) => (
+            <div x-data="{ open:false }" class="relative">
+              <a
+                href={`/category/${item.id}`}
+                class="hover:text-primary transition-colors cursor-pointer"
+              >
+                {item.name}
+              </a>
+            </div>
+          ))
+        }
       </div>
-    
-    ))
-  }
-
-</div>
-
     </div>
   </nav>
 
@@ -100,11 +94,6 @@ try {
     class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-[#000000] group/design-root overflow-x-hidden"
   >
     <main class="flex-grow container mx-auto px-4">
-      <h1
-        class="text-white tracking-light text-2xl md:text-[32px] font-bold leading-tight text-left pb-3 pt-6"
-      >
-        Colección Oreja
-      </h1>
       <div
         class="flex flex-col sm:flex-row justify-between items-center py-2 gap-4"
       >
@@ -112,7 +101,21 @@ try {
           class="w-full sm:w-auto flex items-center justify-center gap-x-2 rounded-lg bg-[#2B0001] px-4 py-2 text-white text-sm font-medium leading-normal border border-[#480001]"
         >
           <span class="material-symbols-outlined text-base"></span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-filter-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6h16" /><path d="M6 12h12" /><path d="M9 18h6" /></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-filter-2"
+            ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+              d="M4 6h16"></path><path d="M6 12h12"></path><path d="M9 18h6"
+            ></path></svg
+          >
         </button>
         <div class="relative w-full sm:w-auto">
           <select
@@ -127,97 +130,115 @@ try {
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white"
           >
             <span class="material-symbols-outlined text-base"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-caret-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 9c.852 0 1.297 .986 .783 1.623l-.076 .084l-6 6a1 1 0 0 1 -1.32 .083l-.094 -.083l-6 -6l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057v-.118l.005 -.058l.009 -.06l.01 -.052l.032 -.108l.027 -.067l.07 -.132l.065 -.09l.073 -.081l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01l.057 -.004l12.059 -.002z" /></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="icon icon-tabler icons-tabler-filled icon-tabler-caret-down"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M18 9c.852 0 1.297 .986 .783 1.623l-.076 .084l-6 6a1 1 0 0 1 -1.32 .083l-.094 -.083l-6 -6l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057v-.118l.005 -.058l.009 -.06l.01 -.052l.032 -.108l.027 -.067l.07 -.132l.065 -.09l.073 -.081l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01l.057 -.004l12.059 -.002z"
+              ></path></svg
+            >
           </div>
         </div>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 py-6">
-  {products.map((product: any) => (
-    <div class="flex flex-col gap-4 group">
-
-      <!-- CONTENEDOR DE IMAGEN -->
-      <div
-        class="relative w-full aspect-square rounded-2xl overflow-hidden 
+        {
+          products.map((product: any) => (
+            <div class="flex flex-col gap-4 group">
+              <div
+                class="relative w-full aspect-square rounded-2xl overflow-hidden 
         bg-[#2B0001] shadow-xl shadow-black/30 border border-[#4f0a0a]/40
         transition-all duration-300 group-hover:border-[#850000]/70"
-      >
-        <div
-          class="w-full h-full bg-center bg-cover 
+              >
+                <div
+                  class="w-full h-full bg-center bg-cover 
           transition-transform duration-300 ease-out group-hover:scale-110"
-          style={`background-image: url('${product.image_url}');`}
-          data-alt={product.product_name}
-        ></div>
+                  style={`background-image: url('${product.image_url}');`}
+                  data-alt={product.product_name}
+                />
 
-        {product.on_sale ? (
-          <div class="absolute top-2 left-2 
+                {product.on_sale ? (
+                  <div
+                    class="absolute top-2 left-2 
           bg-[#850000] text-white text-[10px] font-bold px-2 py-0.5 rounded-full 
-          shadow-md shadow-black/40 border border-white/10">
-            OFERTA
-          </div>
-        ) : null}
-      </div>
+          shadow-md shadow-black/40 border border-white/10"
+                  >
+                    OFERTA
+                  </div>
+                ) : null}
+              </div>
 
-      <!-- INFORMACIÓN -->
-      <div class="flex flex-col gap-2 px-1 select-none">
-        <div>
-          <p class="text-white text-sm font-semibold tracking-wide">
-            {product.product_name}
-          </p>
-          <p class="text-gray-400 text-xs">{product.material}</p>
-        </div>
+              <div class="flex flex-col gap-2 px-1 select-none">
+                <div>
+                  <p class="text-white text-sm font-semibold tracking-wide">
+                    {product.product_name}
+                  </p>
+                  <p class="text-gray-400 text-xs">{product.material}</p>
+                </div>
 
-        <!-- PRECIO -->
-        <div class="flex items-center gap-2 flex-wrap">
-          <p class="text-[#D4B8B8] text-sm font-bold">
-            ${product.price}
-          </p>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <p class="text-[#D4B8B8] text-sm font-bold">
+                    ${product.price}
+                  </p>
 
-          {product.on_sale ? (
-            <p class="text-gray-600 text-xs line-through">
-              ${product.regular_price}
-            </p>
-          ) : null}
-        </div>
+                  {product.on_sale ? (
+                    <p class="text-gray-600 text-xs line-through">
+                      ${product.regular_price}
+                    </p>
+                  ) : null}
+                </div>
 
-        <!-- BOTONES -->
-        <div class="flex flex-col gap-2 mt-1">
-
-          <!-- BOTÓN AGREGAR -->
-          <button
-            id={`add-to-cart-btn-${product.id}`}
-            data-product={encodeURIComponent(JSON.stringify(product || {}))}
-
-            class="flex cursor-pointer w-full items-center justify-center gap-x-2
+                <div class="flex flex-col gap-2 mt-1">
+                  <button
+                    id={`add-to-cart-btn-${product.id}`}
+                    data-product={encodeURIComponent(
+                      JSON.stringify(product || {})
+                    )}
+                    class="flex cursor-pointer w-full items-center justify-center gap-x-2
             rounded-xl border border-[#660000]/40 bg-[#3A0001] 
             px-3 py-2 text-white text-xs font-bold tracking-wide
             transition-all duration-300
             hover:bg-[#660000] hover:border-[#990000]/80
             active:scale-[0.97] active:bg-[#850000]"
-          >
-            <span class="material-symbols-outlined text-base">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-garden-cart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3.324 3a2 2 0 0 1 1.855 1.258l1.097 2.742h14.724a1 1 0 0 1 .94 1.341l-.046 .106l-2.934 5.871a3.5 3.5 0 1 1 -4.96 3.182l.005 -.192a3.5 3.5 0 0 1 .499 -1.618l-2.446 -.258l-3.446 4.75a2 2 0 0 1 -2.08 .762l-.154 -.044a2 2 0 0 1 -1.378 -1.9v-9.804l-1.679 -4.196h-1.321a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 1 -1zm14.176 13a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0 -3m-10.5 -2.498l-.002 5.498l2.783 -3.833a5 5 0 0 1 -2.614 -1.474z" /></svg>            </span>
-            Agregar
-          </button>
+                  >
+                    <span class="material-symbols-outlined text-base">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="icon icon-tabler icons-tabler-filled icon-tabler-garden-cart"
+                      >
+                        <>
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M3.324 3a2 2 0 0 1 1.855 1.258l1.097 2.742h14.724a1 1 0 0 1 .94 1.341l-.046 .106l-2.934 5.871a3.5 3.5 0 1 1 -4.96 3.182l.005 -.192a3.5 3.5 0 0 1 .499 -1.618l-2.446 -.258l-3.446 4.75a2 2 0 0 1 -2.08 .762l-.154 -.044a2 2 0 0 1 -1.378 -1.9v-9.804l-1.679 -4.196h-1.321a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 1 -1zm14.176 13a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0 -3m-10.5 -2.498l-.002 5.498l2.783 -3.833a5 5 0 0 1 -2.614 -1.474z" />
+                        </>
+                      </svg>{" "}
+                    </span>
+                    Agregar
+                  </button>
 
-          <!-- BOTÓN VER (SOLO DESKTOP) -->
-          <a
-            href={"/product/" + product.id}
-            class="hidden md:flex w-full items-center justify-center gap-x-2 
-            rounded-xl border border-[#550000]/40 bg-[#4A0001]
-            px-3 py-2 text-xs font-bold text-white tracking-wide
-            transition-all duration-300
-            hover:bg-[#850000] hover:border-[#A40000]/80
-            active:scale-[0.97]"
-          >
-            Ver producto
-          </a>
-
-        </div>
+                  <a
+                    href={"/product/" + product.id}
+                    class="hidden md:flex w-full items-center justify-center gap-x-2 
+                      rounded-xl border border-[#550000]/40 bg-[#4A0001]
+                      px-3 py-2 text-xs font-bold text-white tracking-wide
+                      transition-all duration-300
+                      hover:bg-[#850000] hover:border-[#A40000]/80
+                      active:scale-[0.97]"
+                  >
+                    Ver producto
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
       </div>
-
-    </div>
-  ))}
-</div>
 
       <div class="flex items-center justify-between gap-4 py-4 text-white">
         <button
@@ -237,8 +258,8 @@ try {
       </div>
     </main>
   </div>
-
 </BaseLayout>
+
 <script type="module">
   window.addEventListener("DOMContentLoaded", () => {
     try {
@@ -274,6 +295,7 @@ try {
     } catch (e) {
       console.error(e);
     }
+
     //---------------------------------
     const categories = [
       { name: "PIERCING OREJA", link: "/categoria/piercing-oreja" },

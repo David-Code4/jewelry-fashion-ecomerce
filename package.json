@@ -14,8 +14,10 @@
     "@clerk/astro": "^2.16.0",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.15.8",
+    "flowbite": "^4.0.1",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "swiper": "^12.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.22",

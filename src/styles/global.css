@@ -1,6 +1,8 @@
 @import "tailwindcss";
-
-
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@import "swiper/css";
+@import "swiper/css/navigation";
 
 /* ================================
    VARIABLES DE DISEÑO PRINCIPAL
@@ -19,8 +21,13 @@
   --radius-xl: 0.75rem;
   --radius-full: 9999px;
 
-  --font-display: 'Manrope', sans-serif;
+  --font-display: 'NB International Pro', sans-serif;
 }
+
+body {
+  font-family: var(--font-display) !important;
+}
+
 .main-bg-gradient {
   background-image: radial-gradient(circle at top left, rgba(164, 0, 0, 0.25) 40%, transparent 70%), radial-gradient(circle at bottom right, rgba(164, 0, 0, 0.15) 30%, transparent 40%);
 }
