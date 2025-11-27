@@ -51,7 +51,7 @@ const reels = [
 
 <section class="w-full py-10 bg-black">
   <div class="max-w-[1400px] mx-auto px-4">
-    <h2 class="text-white text-3xl font-bold mb-8 font-sans">Trending Reels</h2>
+    <h2 class="text-white text-2xl font-bold mb-8 font-sans">Trending Reels</h2>
 
     <div class="swiper reels-swiper !pb-10">
       <div class="swiper-wrapper">
@@ -103,15 +103,14 @@ const reels = [
           ))
         }
       </div>
-
-      <div
+      <!-- <div
         class="swiper-button-prev !text-white !w-12 !h-12 !bg-white/10 !backdrop-blur-md !rounded-full !left-4 hover:!bg-white/20 transition-colors after:!text-lg"
       >
       </div>
       <div
         class="swiper-button-next !text-white !w-12 !h-12 !bg-white/10 !backdrop-blur-md !rounded-full !right-4 hover:!bg-white/20 transition-colors after:!text-lg"
       >
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
@@ -124,15 +123,19 @@ const reels = [
     modules: [Navigation, Autoplay],
     slidesPerView: 1.2, // Móvil: se ve uno y un pedacito del otro
     spaceBetween: 16,
+    scrollbar: {
+      el: ".swiper-scrollbar",
+      hide: true,
+    },
     centeredSlides: true, // El activo siempre en el centro
     loop: true, // Carrusel infinito
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
+    // navigation: {
+    //   nextEl: ".swiper-button-next",
+    //   prevEl: ".swiper-button-prev",
+    // },
     autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
+      delay: 2000,
+      disableOnInteraction: true,
       pauseOnMouseEnter: true, // Se detiene el carrusel (no el video) al pasar el mouse
     },
     breakpoints: {
