@@ -43,9 +43,7 @@ try {
   );
   const allProducts = await response.json();
 
-  productsRelationShip = allProducts.filter(
-    (p) => p.id.toString() !== id
-  );
+  productsRelationShip = allProducts.filter((p) => p.id.toString() !== id);
 } catch (error) {
   console.error("Error loading related products:", error);
 }
@@ -86,14 +84,13 @@ export async function getStaticPaths() {
 
 const { id } = Astro.props;
 --- -->
-
 <BaseLayout>
   <div
     class="relative flex min-h-screen w-full flex-col bg-[#000000] overflow-x-hidden"
   >
     <main class="flex-grow container mx-auto px-4 py-8">
       <div class="grid grid-cols-1 md:grid-cols-2 md:gap-12">
-        <!-- 🖼 Galería dinámica -->
+        <!-- Galería dinámica -->
         <div class="flex flex-col gap-4">
           <!-- Imagen principal -->
           <div

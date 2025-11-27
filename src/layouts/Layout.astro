@@ -16,9 +16,45 @@ import "../styles/global.css";
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
-    <script src="/src/utils/js/cart.js" ></script>
+    <script
+      is:inline
+      src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"
+    ></script>
+    <script src="/src/utils/js/cart.js"></script>
+
+    <style is:global>
+      /* 1. REGULAR (Peso 400) */
+      @font-face {
+        font-family: "NB International Pro";
+        src: url("https://cdn.prod.website-files.com/63792ff4f3d6aa3d62071b61/688a882bf22159c57352cfd7_nbinternationalprocg-regular-webfont.woff2")
+          format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      /* 2. BOLD (Peso 700) - Misma familia, diferente peso */
+      @font-face {
+        font-family: "NB International Pro";
+        src: url("https://cdn.prod.website-files.com/63792ff4f3d6aa3d62071b61/688a882bb4612d20b4afb93b_nbinternationalprocg-bold-webfont.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      /* 3. MONO - Nueva familia */
+      @font-face {
+        font-family: "NB International Pro Mono";
+        src: url("https://cdn.prod.website-files.com/63792ff4f3d6aa3d62071b61/688a8e2d038fc9b0e8d50ff4_nbinternationalprocg-mono-webfont.woff2")
+          format("woff2");
+        font-weight: 400; /* Las mono suelen ser regular */
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
   </head>
-  <body>
+  <body class="font-sans antialiased bg-black text-white">
     <Header />
     <slot />
     <Foter />

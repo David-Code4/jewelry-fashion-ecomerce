@@ -8,22 +8,26 @@ import {
 } from "@clerk/astro/components";
 ---
 
-<header
-  class="sticky top-0 z-50 w-full border-b border-white/10 bg-black backdrop-blur-sm"
->
-  <div
-    class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 md:pt-6">
+  <nav
+    class="bg-black text-white w-full max-w-7xl rounded-full px-6 py-3 flex justify-between items-center shadow-2xl border border-white/10 backdrop-blur-sm bg-opacity-95"
   >
-    <a class="text-xl font-bold uppercase tracking-widest text-white" href="/">Jewelry Fashion</a>
-    <nav
-      class="hidden items-center space-x-4 text-xs font-medium uppercase tracking-wider text-gray-300 lg:flex lg:space-x-6"
-    >
-      <a class="hover:text-white" href="/about-us">Quienes somos</a>
-      <a class="hover:text-white" href="/catalog">Catalogo</a>
-      <a class="hover:text-white" href="/contact">Contacto</a>
-    </nav>
     <div class="flex items-center">
-      <a href="/cart" class="relative flex size-10 items-center justify-center rounded-full text-white hover:bg-white/10">
+      <a href="/" class="text-2xl font-bold tracking-tight">Jewelry Fashion</a>
+    </div>
+
+    <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-200">
+      <a href="/about-us" class="hover:text-white transition">Quienes somos</a>
+      <a href="/catalog" class="hover:text-white transition">Catalogo</a>
+      <a href="/services" class="hover:text-white transition">Servicios</a>
+      <a href="/contact" class="hover:text-white transition">Contacto</a>
+    </div>
+
+    <div class="flex items-center space-x-6">
+      <a
+        href="/cart"
+        class="relative flex size-10 items-center justify-center rounded-full text-white hover:bg-white/10"
+      >
         <span class="material-symbols-outlined text-2xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +47,97 @@ import {
             ></path></svg
           >
         </span>
-        <span id="cart-count-badge" class="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[18px] h-4 px-1 rounded-full bg-primary text-white text-xs font-bold opacity-0 transition-opacity duration-200">0</span>
+        <span
+          id="cart-count-badge"
+          class="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[18px] h-4 px-1 rounded-full bg-primary text-white text-xs font-bold opacity-0 transition-opacity duration-200"
+          >0</span
+        >
+      </a>
+
+      <span
+        class="bg-[#A40000] hover:bg-[#850000] cursor-pointer text-white text-sm font-semibold px-6 py-2.5 rounded-full transition shadow-lg transform active:scale-95"
+      >
+        <SignedOut>
+          <SignInButton mode="modal" />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </span>
+    </div>
+  </nav>
+</header>
+
+<button
+  id="menu-button"
+  class="ml-2 flex size-10 items-center justify-center rounded-full text-white hover:bg-white/10 lg:hidden"
+  aria-controls="mobile-menu"
+  aria-expanded="false"
+  aria-label="Abrir menú"
+>
+  <span class="material-symbols-outlined text-2xl">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon icon-tabler icons-tabler-outline icon-tabler-menu"
+      ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+        d="M4 8l16 0"></path><path d="M4 16l16 0"></path></svg
+    >
+  </span>
+</button>
+
+<!-- <header
+  class="sticky top-0 z-50 w-full border-b border-white/10 bg-black backdrop-blur-sm"
+>
+  <div
+    class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+  >
+    <a class="text-xl font-bold uppercase tracking-widest text-white" href="/"
+      >Jewelry Fashion</a
+    >
+    <nav
+      class="hidden items-center space-x-4 text-xs font-medium uppercase tracking-wider text-gray-300 lg:flex lg:space-x-6"
+    >
+      <a class="hover:text-white" href="/about-us">Quienes somos</a>
+      <a class="hover:text-white" href="/catalog">Catalogo</a>
+      <a class="hover:text-white" href="/contact">Contacto</a>
+    </nav>
+    <div class="flex items-center">
+      <a
+        href="/cart"
+        class="relative flex size-10 items-center justify-center rounded-full text-white hover:bg-white/10"
+      >
+        <span class="material-symbols-outlined text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart"
+            ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+              d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path
+              d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path
+              d="M17 17h-11v-14h-2"></path><path d="M6 5l14 1l-1 7h-13"
+            ></path></svg
+          >
+        </span>
+        <span
+          id="cart-count-badge"
+          class="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[18px] h-4 px-1 rounded-full bg-primary text-white text-xs font-bold opacity-0 transition-opacity duration-200"
+          >0</span
+        >
       </a>
       <div class="ml-4 flex items-center">
         <SignedOut>
@@ -79,7 +173,7 @@ import {
       </button>
     </div>
   </div>
-</header>
+</header> -->
 
 <!-- Mobile menu + overlay -->
 <div
@@ -126,15 +220,21 @@ import {
     <a class="block px-2 py-2 rounded hover:text-white" href="/about-us"
       >Quienes somos</a
     >
-    <a class="block px-2 py-2 rounded hover:text-white" href="/catalog">Catalogo</a>
-    <a class="block px-2 py-2 rounded hover:text-white" href="/services">Servicios</a>
-    <a class="block px-2 py-2 rounded hover:text-white" href="/contact">Contacto</a>
+    <a class="block px-2 py-2 rounded hover:text-white" href="/catalog"
+      >Catalogo</a
+    >
+    <a class="block px-2 py-2 rounded hover:text-white" href="/services"
+      >Servicios</a
+    >
+    <a class="block px-2 py-2 rounded hover:text-white" href="/contact"
+      >Contacto</a
+    >
   </nav>
   <div class="mt-6 border-t border-white/5">
     <div class="flex pl-2 items-center">
       <SignedOut>
         <SignInButton asChild mode="modal">
-            <button>Iniciar sesión</button>
+          <button>Iniciar sesión</button>
         </SignInButton>
       </SignedOut>
       <SignedIn>
@@ -200,15 +300,23 @@ import {
       }
     });
     // Cart badge handling
-    const cartBadge = document.getElementById('cart-count-badge');
-    function setBadge(count){
-      if(!cartBadge) return;
+    const cartBadge = document.getElementById("cart-count-badge");
+    function setBadge(count) {
+      if (!cartBadge) return;
       cartBadge.textContent = String(count || 0);
-      if((count||0) > 0){ cartBadge.classList.remove('opacity-0'); cartBadge.classList.add('opacity-100'); }
-      else { cartBadge.classList.remove('opacity-100'); cartBadge.classList.add('opacity-0'); }
+      if ((count || 0) > 0) {
+        cartBadge.classList.remove("opacity-0");
+        cartBadge.classList.add("opacity-100");
+      } else {
+        cartBadge.classList.remove("opacity-100");
+        cartBadge.classList.add("opacity-0");
+      }
     }
-    window.addEventListener('cartchange', (e)=> setBadge(e.detail?.count));
+    window.addEventListener("cartchange", (e) => setBadge(e.detail?.count));
     // initialize from API if available
-    setTimeout(()=>{ if(window.cartApi && typeof window.cartApi.getCount === 'function') setBadge(window.cartApi.getCount()); }, 50);
+    setTimeout(() => {
+      if (window.cartApi && typeof window.cartApi.getCount === "function")
+        setBadge(window.cartApi.getCount());
+    }, 50);
   });
 </script>
