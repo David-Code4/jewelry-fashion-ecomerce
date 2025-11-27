@@ -33,18 +33,18 @@ try {
 }
 
 // Cargar categorías para menú
-let category = [];
+let categories = [];
 
 try {
   const response = await fetch(
     "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1/get_categories/?nocache=53244"
   );
-  category = await response.json();
+  categories = await response.json();
 } catch (err) {
   console.error("Error loading categories:", err);
 }
 
-let nameCategory = category.find((cat: any) => Number(cat.id) === Number(id));
+let nameCategory = categories.find((cat: any) => Number(cat.id) === Number(id));
 ---
 
 <BaseLayout>
@@ -75,7 +75,7 @@ let nameCategory = category.find((cat: any) => Number(cat.id) === Number(id));
         md:text-xs md:font-medium md:tracking-widest relative"
       >
         {
-          category.map((item: any) => (
+          categories.map((item: any) => (
             <div x-data="{ open:false }" class="relative">
               <a
                 href={`/category/${item.id}`}
@@ -296,15 +296,14 @@ let nameCategory = category.find((cat: any) => Number(cat.id) === Number(id));
       console.error(e);
     }
 
-    //---------------------------------
     const categories = [
-      { name: "PIERCING OREJA", link: "/categoria/piercing-oreja" },
-      { name: "PIERCING NARIZ", link: "/categoria/piercing-nariz" },
-      { name: "LUXURY ORO", link: "/categoria/luxury-oro" },
-      { name: "TITANIO", link: "/categoria/titanio" },
-      { name: "COLECCIONES", link: "/categoria/colecciones" },
-      { name: "ACCESORIOS", link: "/categoria/accesorios" },
-      { name: "ARETES", link: "/categoria/aretes" },
+      // { name: "PIERCING OREJA", link: "/categoria/piercing-oreja" },
+      // { name: "PIERCING NARIZ", link: "/categoria/piercing-nariz" },
+      // { name: "LUXURY ORO", link: "/categoria/luxury-oro" },
+      // { name: "TITANIO", link: "/categoria/titanio" },
+      // { name: "COLECCIONES", link: "/categoria/colecciones" },
+      // { name: "ACCESORIOS", link: "/categoria/accesorios" },
+      // { name: "ARETES", link: "/categoria/aretes" },
     ];
 
     let index = 0;
