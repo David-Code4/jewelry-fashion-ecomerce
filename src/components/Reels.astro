@@ -2,128 +2,151 @@
 import "swiper/css";
 import "swiper/css/navigation";
 
+// Simulamos las imágenes de perfil para que se vea como en tu diseño
+const avatarUrl = "/src/assets/logo1.jpg";
+
 const reels = [
   {
+    id: 1,
     user: "@jewelryfashionoficial",
     followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/DPpEd_vkdSq/embed",
+    embedUrl:
+      "https://www.instagram.com/reel/DPpEd_vkdSq/embed?autoplay=1&muted=1&controls=0",
+    avatar: avatarUrl,
   },
   {
+    id: 2,
     user: "@jewelryfashionoficial",
     followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/Cv2YqJHhJwK/embed",
+    embedUrl:
+      "https://www.instagram.com/reel/DQxRN8xkcWK/embed?autoplay=1&muted=1&controls=0",
+    avatar: avatarUrl,
   },
   {
+    id: 3,
     user: "@jewelryfashionoficial",
     followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/Cv3JKas89S/embed",
+    embedUrl:
+      "https://www.instagram.com/reel/DRiiutbkZqY/embed?autoplay=1&muted=1&controls=0",
+    avatar: avatarUrl,
   },
   {
+    id: 4,
     user: "@jewelryfashionoficial",
     followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/DPpEd_vkdSq/embed",
+    embedUrl:
+      "https://www.instagram.com/p/DQZ7qOcEUOV/embed?autoplay=1&muted=1&controls=0",
+    avatar: avatarUrl,
   },
   {
+    id: 5,
     user: "@jewelryfashionoficial",
     followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/Cv2YqJHhJwK/embed",
-  },
-  {
-    user: "@jewelryfashionoficial",
-    followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/Cv3JKas89S/embed",
-  },
-  {
-    user: "@jewelryfashionoficial",
-    followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/DPpEd_vkdSq/embed",
-  },
-  {
-    user: "@jewelryfashionoficial",
-    followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/Cv2YqJHhJwK/embed",
-  },
-  {
-    user: "@jewelryfashionoficial",
-    followers: "11,9k followers",
-    embedUrl: "https://www.instagram.com/reel/Cv3JKas89S/embed",
+    embedUrl:
+      "https://www.instagram.com/p/DMgH6kXRjEQ/embed?autoplay=1&muted=1&controls=0",
+    avatar: avatarUrl,
   },
 ];
 ---
 
-<section class="reels-container">
-  <div class="swiper reels-swiper">
-    <div class="swiper-wrapper">
-      {
-        reels.map((reel) => (
-          <div class="swiper-slide">
-            <div class="reel-card">
-              <div class="reel-header">
-                <strong>{reel.user}</strong>
-                <span>{reel.followers}</span>
-              </div>
-              <div class="reel-video">
-                <iframe
-                  src={reel.embedUrl}
-                  width="100%"
-                  height="500"
-                  frameborder="0"
-                  scrolling="no"
-                  allowtransparency="true"
-                  allow="encrypted-media"
-                />
+<section class="w-full py-10 bg-black">
+  <div class="max-w-[1400px] mx-auto px-4">
+    <h2 class="text-white text-3xl font-bold mb-8 font-sans">Trending Reels</h2>
+
+    <div class="swiper reels-swiper !pb-10">
+      <div class="swiper-wrapper">
+        {
+          reels.map((reel) => (
+            <div class="swiper-slide">
+              <div class="reel-card group relative w-full aspect-[9/16] rounded-[32px] overflow-hidden bg-gray-900 border border-white/10 shadow-2xl transition-transform hover:scale-[1.02]">
+                <div class="absolute top-0 left-0 w-full p-5 z-20 flex items-center gap-3 bg-gradient-to-b from-black/80 via-black/40 to-transparent">
+                  <div class="relative w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 to-pink-500">
+                    <img
+                      src={reel.avatar}
+                      alt="Avatar"
+                      class="w-full h-full rounded-full object-cover border-2 border-black"
+                    />
+                  </div>
+
+                  <div class="flex flex-col text-white">
+                    <div class="flex items-center gap-1">
+                      <span class="font-bold text-sm tracking-wide">
+                        {reel.user}
+                      </span>
+                      <svg
+                        class="w-4 h-4 text-blue-500 fill-current"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .495.083.965.238 1.4-1.272.65-2.147 2.02-2.147 3.6 0 1.478.78 2.772 1.902 3.46C3.007 16.93 3 17.973 3 19c0 2.21 1.79 4 4 4 .917 0 1.855-.005 2.507-.39.67.97 1.577 1.39 2.493 1.39.915 0 1.823-.42 2.493-1.39.652.385 1.59.39 2.507.39 2.21 0 4-1.79 4-4 0-1.027-.007-2.07-.403-2.99 1.122-.688 1.902-1.982 1.902-3.46zm-9.827 5.094l-3.94-3.56 1.413-1.28 2.527 2.284 5.927-5.36 1.414 1.28-7.34 6.636z" />
+                      </svg>
+                    </div>
+                    <span class="text-[10px] font-medium opacity-80 uppercase tracking-wider">
+                      {reel.followers}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="w-full h-full relative z-10 bg-black">
+                  <iframe
+                    src={reel.embedUrl}
+                    class="absolute inset-0 w-full h-full object-cover scale-[1.15]"
+                    frameborder="0"
+                    scrolling="no"
+                    allowtransparency="true"
+                    allow="autoplay; encrypted-media"
+                  />
+                </div>
+
+                <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/60 to-transparent z-20 pointer-events-none" />
               </div>
             </div>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
+
+      <div
+        class="swiper-button-prev !text-white !w-12 !h-12 !bg-white/10 !backdrop-blur-md !rounded-full !left-4 hover:!bg-white/20 transition-colors after:!text-lg"
+      >
+      </div>
+      <div
+        class="swiper-button-next !text-white !w-12 !h-12 !bg-white/10 !backdrop-blur-md !rounded-full !right-4 hover:!bg-white/20 transition-colors after:!text-lg"
+      >
+      </div>
     </div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
   </div>
 </section>
 
 <script>
   import Swiper from "swiper";
-  import { Navigation } from "swiper/modules";
+  import { Navigation, Autoplay } from "swiper/modules";
 
   new Swiper(".reels-swiper", {
-    modules: [Navigation],
-    slidesPerView: 3,
-    spaceBetween: 20,
+    modules: [Navigation, Autoplay],
+    slidesPerView: 1.2, // Móvil: se ve uno y un pedacito del otro
+    spaceBetween: 16,
+    centeredSlides: true, // El activo siempre en el centro
+    loop: true, // Carrusel infinito
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true, // Se detiene el carrusel (no el video) al pasar el mouse
+    },
     breakpoints: {
-      320: { slidesPerView: 1.2 },
-      768: { slidesPerView: 2.2 },
-      1024: { slidesPerView: 3 },
+      640: { slidesPerView: 2.2, centeredSlides: false, spaceBetween: 20 },
+      1024: { slidesPerView: 3, centeredSlides: false, spaceBetween: 24 }, // Desktop: 3 columnas claras
+      1280: { slidesPerView: 4, centeredSlides: false, spaceBetween: 30 },
     },
   });
 </script>
+
 <style>
-  .reels-container {
+  /* Ajuste fino para ocultar controles nativos de Instagram si sobresalen */
+  iframe {
     width: 100%;
-    padding: 2rem 0;
-  }
-
-  .reel-card {
-    background: #111;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  }
-
-  .reel-header {
-    padding: 1rem;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .reel-video iframe {
-    border: none;
+    height: 100%;
   }
 </style>
