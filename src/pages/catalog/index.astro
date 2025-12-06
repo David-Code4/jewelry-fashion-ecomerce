@@ -4,22 +4,30 @@ import BaseLayout from "../../layouts/Layout.astro";
 let products = [];
 let category = [];
 
+function generateRandomNumber() {
+  return Math.floor(Math.random() * 100000);
+}
+
 const API_URL = import.meta.env.PUBLIC_API_URL;
 try {
-  const response = await fetch(`${API_URL}/get_categories/?nocache=53244`);
+  const response = await fetch(
+    `${API_URL}/get_categories/?nocache=${generateRandomNumber()}`
+  );
   category = await response.json();
 
   // Evitar mostrar el mismo producto como relacionado
 } catch (err) {
-  console.error("Error loading related products:", err);
+  console.log("Error loading related products:", err);
 }
 
 // Fetch productos relacionados
 try {
-  const response = await fetch(`${API_URL}/get_products/home/`);
+  const response = await fetch(
+    `${API_URL}/get_products/home/?nocache=${generateRandomNumber()}`
+  );
   products = await response.json();
 } catch (err) {
-  console.error("Error loading related products:", err);
+  console.log("Error loading related products:", err);
 }
 
 const formatPrice = (value: any) => {
@@ -58,7 +66,20 @@ const formatPrice = (value: any) => {
         class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800/80 text-white p-2 rounded-full shadow-md
            md:hidden z-20"
       >
-        <span class="material-symbols-outlined">chevron_left</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"
+          ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+            d="M15 6l-6 6l6 6"></path></svg
+        >
       </button>
 
       <!-- CARRUSEL -->
@@ -80,7 +101,20 @@ const formatPrice = (value: any) => {
         class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800/80 text-white p-2 rounded-full shadow-md
            md:hidden z-20"
       >
-        <span class="material-symbols-outlined">chevron_right</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+          ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+            d="M9 6l6 6l-6 6"></path></svg
+        >
       </button>
 
       <!-- Menú desktop normal -->
@@ -262,7 +296,20 @@ const formatPrice = (value: any) => {
           class="flex items-center justify-center gap-2 rounded-lg border border-[#480001] bg-[#2B0001] p-2 text-sm font-medium disabled:opacity-50"
           disabled=""
         >
-          <span class="material-symbols-outlined text-lg">chevron_left</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"
+            ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+              d="M15 6l-6 6l6 6"></path></svg
+          >
           <span class="hidden sm:inline">Anterior</span>
         </button>
         <p class="text-sm text-gray-400">Página 1 de 5</p>
@@ -270,7 +317,20 @@ const formatPrice = (value: any) => {
           class="flex items-center justify-center gap-2 rounded-lg border border-[#480001] bg-[#2B0001] p-2 text-sm font-medium"
         >
           <span class="hidden sm:inline">Siguiente</span>
-          <span class="material-symbols-outlined text-lg">chevron_right</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+            ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+              d="M9 6l6 6l-6 6"></path></svg
+          >
         </button>
       </div>
     </main>
@@ -279,6 +339,10 @@ const formatPrice = (value: any) => {
 
 <script type="module">
   window.addEventListener("DOMContentLoaded", async () => {
+    function generateRandomNumber() {
+      return Math.floor(Math.random() * 100000);
+    }
+
     try {
       const allProducts = document.querySelectorAll(
         'button[id^="add-to-cart-btn-"]'
@@ -310,18 +374,21 @@ const formatPrice = (value: any) => {
         });
       });
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
 
     let categories = [];
 
-    const API_URL = import.meta.env.PUBLIC_API_URL;
+    const API_URL =
+      "https://admin.jewelryfashionoficial.com/wp-json/custom-api/v1/api-json/v1";
 
     try {
-      const response = await fetch(`${API_URL}/get_categories/?nocache=53244`);
+      const response = await fetch(
+        `${API_URL}/get_categories/?nocache=${generateRandomNumber()}`
+      );
       categories = await response.json();
     } catch (err) {
-      console.error("Error loading related products:", err);
+      console.log("Error loading related products:", err);
     }
 
     let index = 0;
@@ -337,7 +404,7 @@ const formatPrice = (value: any) => {
       setTimeout(() => {
         // Cambiar el contenido a un enlace clickeable
         const cat = categories[index];
-        item.innerHTML = `<a href="${cat.link}" class="transition-opacity duration-500 opacity-100 text-white">${cat.name}</a>`;
+        item.innerHTML = `<a href="/category/${cat.id}" class="transition-opacity duration-500 opacity-100 text-white">${cat.name}</a>`;
 
         // Fade in
         item.classList.remove("opacity-0");

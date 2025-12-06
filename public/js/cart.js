@@ -5,7 +5,7 @@ function safeParse(raw){ try{ return JSON.parse(raw); }catch(e){ return null; } 
 
 function readCart(){ const raw = localStorage.getItem(CART_KEY); const data = safeParse(raw); return Array.isArray(data) ? data : []; }
 
-function saveCart(cart){ try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){ console.error('cart save failed', e); } dispatchCartChange(); }
+function saveCart(cart){ try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){ console.log('cart save failed', e); } dispatchCartChange(); }
 
 function dispatchCartChange(){ const count = getCount(); window.dispatchEvent(new CustomEvent('cartchange',{ detail: { count } })); }
 

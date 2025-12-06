@@ -3,9 +3,15 @@ import BaseLayout from "../../layouts/Layout.astro";
 
 // 1. GENERAR RUTAS ESTÁTICAS
 export async function getStaticPaths() {
+  function generateRandomNumber() {
+    return Math.floor(Math.random() * 100000);
+  }
+
   try {
     const API_URL = import.meta.env.PUBLIC_API_URL;
-    const response = await fetch(`${API_URL}/get_products/home/?nocache=12345`);
+    const response = await fetch(
+      `${API_URL}/get_products/home/?nocache=${generateRandomNumber()}`
+    );
 
     const products = await response.json();
 
@@ -13,7 +19,7 @@ export async function getStaticPaths() {
       params: { id: product.id.toString() },
     }));
   } catch (error) {
-    console.error("Error obteniendo productos:", error);
+    console.log("Error obteniendo productos:", error);
     return [];
   }
 }
@@ -26,22 +32,30 @@ let productSelected = null;
 let productsRelationShip = [];
 const API_URL = import.meta.env.PUBLIC_API_URL;
 
+function generateRandomNumber() {
+  return Math.floor(Math.random() * 100000);
+}
+
 try {
-  const response = await fetch(`${API_URL}/product_exists/${id}`);
+  const response = await fetch(
+    `${API_URL}/product_exists/${id}?nocache=${generateRandomNumber()}`
+  );
   const data = await response.json();
   productSelected = data[0] || null;
 } catch (error) {
-  console.error("Error loading product:", error);
+  console.log("Error loading product:", error);
 }
 
 // 4. PRODUCTOS RELACIONADOS
 try {
-  const response = await fetch(`${API_URL}/get_products/home/?nocache=12345`);
+  const response = await fetch(
+    `${API_URL}/get_products/home/?nocache=${generateRandomNumber()}`
+  );
   const allProducts = await response.json();
 
   productsRelationShip = allProducts.filter((p: any) => p.id.toString() !== id);
 } catch (error) {
-  console.error("Error loading related products:", error);
+  console.log("Error loading related products:", error);
 }
 
 const formatPrice = (value: any) => {
